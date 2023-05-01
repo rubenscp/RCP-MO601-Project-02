@@ -110,7 +110,7 @@ class RiscVProcessor:
     # execute program from memory 
     def execute_program_from_memory(self, program_name, test_path_log, show_print):
         # getting just the program name without extensions
-        log_filename = program_name[:len(program_name)-6]
+        log_filename = program_name[:len(program_name)-5]
 
         # creating log file 
         self.log.create_log_file(log_filename, test_path_log)
@@ -145,7 +145,6 @@ class RiscVProcessor:
             # setting rs1 and rs1 of the previous instruction
             int_rs1_before_execute_instruction = current_instruction.get_int_register_pointed_by_rs1()
             int_rs2_before_execute_instruction = current_instruction.get_int_register_pointed_by_rs2()
-
             current_instruction.set_registers_previous_instruction(int_rs1_before_execute_instruction, \
                                                                    int_rs2_before_execute_instruction, \
                                                                    self.registers)
@@ -595,9 +594,9 @@ class RiscVProcessor:
             self.registers[instruction.get_int_register_pointed_by_rs1()] * \
             self.registers[instruction.get_int_register_pointed_by_rs2()]
 
-        int_reg_number_pointed_by_rs1 = Util.binary_in_string_to_int(instruction.r_type_bin_rs1)
-        int_reg_number_pointed_by_rs2 = Util.binary_in_string_to_int(instruction.r_type_bin_rs2)        
-        int_reg_number_pointed_by_rd = Util.binary_in_string_to_int(instruction.r_type_bin_rd)
+        int_reg_number_pointed_by_rs1 = Util.convert_bin_str_to_int(instruction.r_type_bin_rs1)
+        int_reg_number_pointed_by_rs2 = Util.convert_bin_str_to_int(instruction.r_type_bin_rs2)        
+        int_reg_number_pointed_by_rd = Util.convert_bin_str_to_int(instruction.r_type_bin_rd)
         int_value_pointed_by_rs1 = self.registers[int_reg_number_pointed_by_rs1]
         int_value_pointed_by_rs2 = self.registers[int_reg_number_pointed_by_rs2]
         self.registers[int_reg_number_pointed_by_rd] = int_value_pointed_by_rs1 * int_value_pointed_by_rs2
@@ -643,10 +642,18 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	x[rd] = x[rs1] /s x[rs2]
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int(np.fix( \
-            self.registers[instruction.get_int_register_pointed_by_rs1()] / \
-            self.registers[instruction.get_int_register_pointed_by_rs2()]    
-        ))
+        aux_rs1_number_reg = instruction.get_int_register_pointed_by_rs1()
+        aux_rs1_value = self.registers[instruction.get_int_register_pointed_by_rs1()]    
+        aux_rs2_number_reg = instruction.get_int_register_pointed_by_rs2()
+        aux_rs2_value = self.registers[instruction.get_int_register_pointed_by_rs2()]    
+
+        if self.registers[instruction.get_int_register_pointed_by_rs2()] == 0:
+            self.registers[instruction.get_int_register_pointed_by_rd()] = 0 
+        else:         
+            self.registers[instruction.get_int_register_pointed_by_rd()] = int(np.fix( \
+                self.registers[instruction.get_int_register_pointed_by_rs1()] / \
+                self.registers[instruction.get_int_register_pointed_by_rs2()]    
+            ))
        
         # preparing log line of the instruction 
         # Format:	div rd,rs1,rs2
@@ -666,10 +673,13 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	x[rd] = x[rs1] /u x[rs2]
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int(np.fix( \
-            self.registers[instruction.get_int_register_pointed_by_rs1()] / \
-            self.registers[instruction.get_int_register_pointed_by_rs2()]    
-        ))        
+        if self.registers[instruction.get_int_register_pointed_by_rs2()] == 0:
+            self.registers[instruction.get_int_register_pointed_by_rd()] = 0 
+        else:         
+            self.registers[instruction.get_int_register_pointed_by_rd()] = int(np.fix( \
+                self.registers[instruction.get_int_register_pointed_by_rs1()] / \
+                self.registers[instruction.get_int_register_pointed_by_rs2()]    
+            ))        
         
         # preparing log line of the instruction
         # Format: divu rd,rs1,rs2
@@ -876,7 +886,7 @@ class RiscVProcessor:
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) \
-            + ',' +  str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0))
+            + ',' +  str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0))
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
 
@@ -1026,7 +1036,7 @@ class RiscVProcessor:
         # Implementation: x[rd] = x[rs1] << shamt
         self.registers[instruction.get_int_register_pointed_by_rd()] = \
             self.registers[instruction.get_int_register_pointed_by_rs1()] << \
-            Util.binary_in_string_to_int(instruction.i_type_bin_shamt)
+            Util.convert_bin_str_to_int(instruction.i_type_bin_shamt)
 
         # preparing log line of the instruction 
         # Format:	slli rd,rs1,shamt
@@ -1035,7 +1045,7 @@ class RiscVProcessor:
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) \
-            + ',' +  str(Util.binary_in_string_to_int(instruction.i_type_bin_shamt))
+            + ',' +  str(Util.convert_bin_str_to_int(instruction.i_type_bin_shamt))
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1054,7 +1064,7 @@ class RiscVProcessor:
         # Implementation:	x[rd] = x[rs1] >>u shamt
         self.registers[instruction.get_int_register_pointed_by_rd()] = \
             self.registers[instruction.get_int_register_pointed_by_rs1()] >> \
-            Util.binary_in_string_to_int(instruction.i_type_bin_shamt)
+            Util.convert_bin_str_to_int(instruction.i_type_bin_shamt)
 
         # preparing log line of the instruction
         # Format: srli rd,rs1,shamt
@@ -1063,7 +1073,7 @@ class RiscVProcessor:
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) \
-            + ',' +  str(Util.binary_in_string_to_int(instruction.i_type_bin_shamt))
+            + ',' +  str(Util.convert_bin_str_to_int(instruction.i_type_bin_shamt))
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1082,7 +1092,7 @@ class RiscVProcessor:
         # Implementation:	x[rd] = x[rs1] >>s shamt
         self.registers[instruction.get_int_register_pointed_by_rd()] = \
             self.registers[instruction.get_int_register_pointed_by_rs1()] >> \
-            Util.binary_in_string_to_int(instruction.i_type_bin_shamt)
+            Util.convert_bin_str_to_int(instruction.i_type_bin_shamt)
         
         # preparing log line of the instruction 
         # Format:	srai rd,rs1,shamt
@@ -1091,7 +1101,7 @@ class RiscVProcessor:
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) \
-            + ',' +  str(Util.binary_in_string_to_int(instruction.i_type_bin_shamt))
+            + ',' +  str(Util.convert_bin_str_to_int(instruction.i_type_bin_shamt))
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1101,11 +1111,22 @@ class RiscVProcessor:
     def executeBaseInstruction_I_type_lb(self, instruction):
 
         # executing instruction  
-        # Implementation:	x[rd] = sext(M[x[rs1] + sext(offset)][7:0])     
+        # Implementation:	x[rd] = sext(M[x[rs1] + sext(offset)][7:0])  
+
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-                             instruction.i_type_int_offset_sexted
-        int_memory_value_loaded = self.memory[int_address_memory]
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
+                             instruction.s_type_int_offset_sexted
+        # getting value at the memory: sext(M[x[rs1] + sext(offset)]
+        int_values = []
+        int_values.append(self.memory[int_address_memory])
+        # getting the real value from slices
+        int_memory_value_loaded = Util.merge_slices_8_bits_into_one_value(int_values)
+        # setting value into register rd
+        self.registers[instruction.get_int_register_pointed_by_rd()] = \
+            int_memory_value_loaded
+        # self.s_type_int_offset_sexted = Util.adjust_bin_immediate_n_bits(self.s_type_bin_immediate_adjusted, \
+        #                                                             len(self.s_type_bin_immediate_adjusted))        
+
 
         # preparing log line of the instruction 
         # Format:	lb rd,offset(rs1)
@@ -1124,10 +1145,18 @@ class RiscVProcessor:
     def executeBaseInstruction_I_type_lh(self, instruction):
 
         # executing instruction   
-        # Implementation:	x[rd] = sext(M[x[rs1] + sext(offset)][15:0]) 
+        # Implementation:	x[rd] = sext(M[x[rs1] + sext(offset)][15:0])
+
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-                             instruction.i_type_int_offset_sexted
-        int_memory_value_loaded = self.memory[int_address_memory]
+                             instruction.s_type_int_offset_sexted
+        # getting value at the memory: sext(M[x[rs1] + sext(offset)]
+        int_values = []
+        int_values.append(self.memory[int_address_memory])
+        int_values.append(self.memory[int_address_memory+1])
+        # getting the real value from slices
+        int_memory_value_loaded = Util.merge_slices_8_bits_into_one_value(int_values)
+        # setting value into register rd
         self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
         
         # preparing log line of the instruction         
@@ -1147,24 +1176,20 @@ class RiscVProcessor:
     def executeBaseInstruction_I_type_lw(self, instruction):
 
         # executing instruction
-        # Implementation: x[rd] = sext(M[x[rs1] + sext(offset)][31:0])   
-        # 
+        # Implementation: x[rd] = sext(M[x[rs1] + sext(offset)][31:0])
+
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-                             instruction.i_type_int_offset_sexted
-        int_memory_value_loaded = self.memory[int_address_memory]
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' ANTES DO TESTES      rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rd()]}' \
-        #     + f' rd_number: {instruction.get_int_register_pointed_by_rs2()}' \
-        #     + f' rd_value: {self.registers[instruction.get_int_register_pointed_by_rd()]}' \
-        #     + f' offset: {instruction.b_type_int_offset_sexted}' \
-        #     + f' int_memory_value_loaded: {int_memory_value_loaded}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
- 
+                             instruction.s_type_int_offset_sexted
+        # getting value at the memory: sext(M[x[rs1] + sext(offset)]
+        int_values = []
+        int_values.append(self.memory[int_address_memory])
+        int_values.append(self.memory[int_address_memory+1])
+        int_values.append(self.memory[int_address_memory+2])
+        int_values.append(self.memory[int_address_memory+3])
+        # getting the real value from slices
+        int_memory_value_loaded = Util.merge_slices_8_bits_into_one_value(int_values)
+        # setting value into register rd
         self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
 
         # preparing log line of the instruction 
@@ -1255,8 +1280,8 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_pred)) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_succ))             
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_pred)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_succ))             
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1273,8 +1298,8 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_pred)) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_succ))             
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_pred)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_succ))             
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1332,7 +1357,7 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) + ')' 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
@@ -1352,7 +1377,7 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) + ')' 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
@@ -1371,7 +1396,7 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
             + ',' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rs1()) + ')' 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
@@ -1390,8 +1415,8 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_uimm)) 
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_uimm)) 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1409,8 +1434,8 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_uimm)) 
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_uimm)) 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1429,8 +1454,8 @@ class RiscVProcessor:
             '=' + Util.convertIntToHex(self.registers[instruction.get_int_register_pointed_by_rd()], 8)
         instruction.instruction_dissassembly = instruction.get_mnemonic() \
             + ' ' + self.get_assembler_mnemonic_register(instruction.get_int_register_pointed_by_rd()) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)) \
-            + ',' + str(Util.binary_in_string_to_int(instruction.i_type_bin_uimm)) 
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_immediate_11_0)) \
+            + ',' + str(Util.convert_bin_str_to_int(instruction.i_type_bin_uimm)) 
         instruction.set_log_line(self.registers[instruction.get_int_register_pointed_by_rd()])      
 
         # increment address at PC (+4 bytes)
@@ -1478,12 +1503,13 @@ class RiscVProcessor:
         # executing instruction
         # Implementation:	M[x[rs1] + sext(offset)] = x[rs2][7:0]
 
-        # getting  x[rs2][7:0]
-        int_value_to_store_in_memory = self.registers[instruction.get_int_register_pointed_by_rs2()]
-        int_value_to_store_in_memory = Util.adjust_int_immediate_n_bits(int_value_to_store_in_memory, 8)                    
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
                              instruction.s_type_int_offset_sexted
-        self.memory[int_address_memory] = int_value_to_store_in_memory            
+        # getting  x[rs2][7:0]
+        int_values = Util.expand_int_into_slices_8_bits(self.registers[instruction.get_int_register_pointed_by_rs2()], 8)
+        # setting memory with values considering 8 bits slices 
+        self.memory[int_address_memory] = int_values[0]
 
         # preparing log line of the instruction 
         # Format:	sb rs2,offset(rs1)
@@ -1502,11 +1528,15 @@ class RiscVProcessor:
 
         # executing instruction
         # Implementation:	M[x[rs1] + sext(offset)] = x[rs2][15:0]
-        int_value_to_store_in_memory  = self.registers[instruction.get_int_register_pointed_by_rs2()]
-        int_value_to_store_in_memory = Util.adjust_int_immediate_n_bits(int_value_to_store_in_memory, 16)                    
+
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
                              instruction.s_type_int_offset_sexted
-        self.memory[int_address_memory] = int_value_to_store_in_memory         
+        # getting  x[rs2][15:0]
+        int_values = Util.expand_int_into_slices_8_bits(self.registers[instruction.get_int_register_pointed_by_rs2()], 16)
+        # setting memory with values considering 8 bits slices 
+        self.memory[int_address_memory]   = int_values[0]
+        self.memory[int_address_memory+1] = int_values[1]
 
         # preparing log line of the instruction 
         # Format:	sh rs2,offset(rs1)
@@ -1525,17 +1555,17 @@ class RiscVProcessor:
 
         # executing instruction
         # Implementation:	M[x[rs1] + sext(offset)] = x[rs2][31:0]
-        # bin_value = instruction.s_type_bin_rs2 + instruction.s_type_bin_immediate_adjusted
-        # int_value_to_store_in_memory = Util.binary_in_string_to_int(bin_value)
-        # int_offset = Util.binary_in_string_to_int(instruction.s_type_bin_immediate_adjusted)
-        # int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + int_offset
-        # self.memory[int_address_memory] = int_value_to_store_in_memory   
-        
-        int_value_to_store_in_memory  = self.registers[instruction.get_int_register_pointed_by_rs2()]
-        int_value_to_store_in_memory = Util.adjust_int_immediate_n_bits(int_value_to_store_in_memory, 32)
+
+        # getting memory address: x[rs1] + sext(offset)
         int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
                              instruction.s_type_int_offset_sexted
-        self.memory[int_address_memory] = int_value_to_store_in_memory                     
+        # getting  x[rs2][31:0]
+        int_values = Util.expand_int_into_slices_8_bits(self.registers[instruction.get_int_register_pointed_by_rs2()], 32)
+        # setting memory with values considering 8 bits slices 
+        self.memory[int_address_memory]   = int_values[0]
+        self.memory[int_address_memory+1] = int_values[1]
+        self.memory[int_address_memory+2] = int_values[2]
+        self.memory[int_address_memory+3] = int_values[3]
 
         # preparing log line of the instruction 
         # Format:	sw rs2,offset(rs1)
@@ -1722,7 +1752,10 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] <u x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        if abs(self.registers[instruction.get_int_register_pointed_by_rs1()]) < abs(self.registers[instruction.get_int_register_pointed_by_rs2()]):
+
+
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] < \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1826,7 +1859,7 @@ class RiscVProcessor:
         # executing instruction  
         # x[rd] = pc + sext(immediate[31:12] << 12)
         immediate_plus_12_zeros_shifted = instruction.u_type_bin_immediate_31_12 + '0'*12
-        int_immediate_adjusted = Util.binary_in_string_to_int(immediate_plus_12_zeros_shifted)
+        int_immediate_adjusted = Util.convert_bin_str_to_int(immediate_plus_12_zeros_shifted)
         
         # updating register 
         self.registers[instruction.get_int_register_pointed_by_rd()] = self.int_program_counter + int_immediate_adjusted

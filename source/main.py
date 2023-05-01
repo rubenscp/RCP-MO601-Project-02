@@ -37,31 +37,6 @@ from RiscVProcessor import RiscVProcessor
 # Application Methods
 # ###########################################
 
-# do_not_process = ['061.div.debug', '062.div.debug', '063.div.debug', '064.div.debug', '065.div.debug', \
-#                   '066.div.debug', '067.div.debug', '068.div.debug', '069.div.debug', \
-#                   '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
-#                   '131.call.debug', '132.call.debug', '133.call.debug', '134.call.debug', \
-#                   '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
-#                   '081.shift.debug', '082.shift.debug', '083.shift.debug', '084.shift.debug', '085.shift.debug', '086.shift.debug', \
-#                   '201.atomic.debug', 
-#                  ]
-
-# do_not_process = ['061.div.debug', '062.div.debug', '063.div.debug', '064.div.debug', '065.div.debug', \
-#                   '066.div.debug', '067.div.debug', '068.div.debug', '069.div.debug', \
-#                   '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
-#                   '086.shift.debug', \
-#                   '131.call.debug', '132.call.debug', '133.call.debug', '134.call.debug', \
-#                   '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
-#                   '201.atomic.debug'
-#                   ]
-
-do_not_process = ['133.call.debug', '134.call.debug', \
-                  '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
-                  '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
-                  ]
-
-# do_not_process = []
-
 def remove_log_files(test_path_log):
 
     # checking if exists the path 
@@ -101,6 +76,33 @@ def simulate_execution_program(riscv_processor, program_name, test_path, test_pa
     # executing program from meory 
     riscv_processor.execute_program_from_memory(program_name, test_path_log, show_print)
 
+
+
+# do_not_process = ['061.div.dump', '062.div.dump', '063.div.dump', '064.div.dump', '065.div.dump', \
+#                   '066.div.dump', '067.div.dump', '068.div.dump', '069.div.dump', \
+#                   '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
+#                   '131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
+#                   '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
+#                   '081.shift.dump', '082.shift.dump', '083.shift.dump', '084.shift.dump', '085.shift.dump', '086.shift.dump', \
+#                   '201.atomic.dump', 
+#                  ]
+
+# do_not_process = ['061.div.dump', '062.div.dump', '063.div.dump', '064.div.dump', '065.div.dump', \
+#                   '066.div.dump', '067.div.dump', '068.div.dump', '069.div.dump', \
+#                   '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
+#                   '086.shift.dump', \
+#                   '131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
+#                   '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
+#                   '201.atomic.dump'
+#                   ]
+
+do_not_process = ['133.call.dump', '134.call.dump', \
+                  '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
+                  '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
+                  ]
+
+# do_not_process = []
+
 # ###########################################
 # Main method
 # ###########################################
@@ -130,13 +132,13 @@ if __name__ == '__main__':
 
         # define printing of messages into the terminal 
         show_print = False
-
-
-        # program_name_debug = '000.main.debug'
-        # program_name_debug = '142.array.debug'
-        # program_name_debug = '121.loop.debug'
-        program_name_debug = '133.call.debug'
-        # program_name_debug = ''
+        # program_name_debug = '000.main.dump'
+        # program_name_debug = '142.array.dump'
+        # program_name_debug = '121.loop.dump'
+        # program_name_debug = '133.call.dump'
+        # program_name_debug = '011.const.dump'
+        # program_name_debug = '061.div.dump'
+        program_name_debug = ''
         if program_name_debug != '':
             do_not_process = []
             if program_name_debug == program_name:
@@ -152,15 +154,15 @@ if __name__ == '__main__':
         # if program_name.find('.shift.') > 0: continue
         # if program_name.find('.if.') > 0: continue
         # # if program_name.find('.loop.') > 0: continue
-        # if program_name.find('.call.') > 0: continue
+        if program_name.find('.call.') > 0: continue
         # if program_name.find('.array.') > 0: continue
 
         # if program_name.find('.loop.') > 0: x = 0
         # else: continue
 
-        # if program_name == " 086.shift.debug": continue
+        # if program_name == " 086.shift.dump": continue
 
-        if program_name.find('.debug') > 0: 
+        if program_name.find('.dump') > 0: 
             # processing test 
             print(f'Simulating running of program {program_name}')
 

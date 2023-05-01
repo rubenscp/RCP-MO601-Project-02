@@ -106,45 +106,45 @@ class Instruction:
 
     def get_int_register_pointed_by_rd(self):
         if self.type == 'R':
-            return Util.binary_in_string_to_int(self.r_type_bin_rd)
+            return Util.convert_bin_str_to_int(self.r_type_bin_rd)
         elif self.type == 'I':
-            return Util.binary_in_string_to_int(self.i_type_bin_rd)
+            return Util.convert_bin_str_to_int(self.i_type_bin_rd)
         elif self.type == 'S': # use the same position of rd register 
-            return Util.binary_in_string_to_int(self.s_type_bin_immediate_4_0)
+            return Util.convert_bin_str_to_int(self.s_type_bin_immediate_4_0)
         elif self.type == 'B': # use the same position of rd register 
-            return Util.binary_in_string_to_int(self.b_type_bin_immediate4_1_11)
+            return Util.convert_bin_str_to_int(self.b_type_bin_immediate4_1_11)
         elif self.type == 'U':
-            return Util.binary_in_string_to_int(self.u_type_bin_rd)
+            return Util.convert_bin_str_to_int(self.u_type_bin_rd)
         elif self.type == 'J':
-            return Util.binary_in_string_to_int(self.j_type_bin_rd)
+            return Util.convert_bin_str_to_int(self.j_type_bin_rd)
 
     def get_int_register_pointed_by_rs1(self):
         if self.type == 'R':
-            return Util.binary_in_string_to_int(self.r_type_bin_rs1)
+            return Util.convert_bin_str_to_int(self.r_type_bin_rs1)
         elif self.type == 'I':
-            return Util.binary_in_string_to_int(self.i_type_bin_rs1)
+            return Util.convert_bin_str_to_int(self.i_type_bin_rs1)
         elif self.type == 'S':
-            return Util.binary_in_string_to_int(self.s_type_bin_rs1)
+            return Util.convert_bin_str_to_int(self.s_type_bin_rs1)
         elif self.type == 'B':
-            return Util.binary_in_string_to_int(self.b_type_bin_rs1)
+            return Util.convert_bin_str_to_int(self.b_type_bin_rs1)
         elif self.type == 'U': # use the same position of rs1 register 
-            return Util.binary_in_string_to_int(self.u_type_bin_rs1_log)
+            return Util.convert_bin_str_to_int(self.u_type_bin_rs1_log)
         elif self.type == 'J': # use the same position of rs1 register
-            return Util.binary_in_string_to_int(self.j_type_bin_rs1_log)
+            return Util.convert_bin_str_to_int(self.j_type_bin_rs1_log)
 
     def get_int_register_pointed_by_rs2(self):
         if self.type == 'R':
-            return Util.binary_in_string_to_int(self.r_type_bin_rs2)
+            return Util.convert_bin_str_to_int(self.r_type_bin_rs2)
         elif self.type == 'I':
-            return Util.binary_in_string_to_int(self.i_type_bin_rs2_log)
+            return Util.convert_bin_str_to_int(self.i_type_bin_rs2_log)
         elif self.type == 'S':
-            return Util.binary_in_string_to_int(self.s_type_bin_rs2)
+            return Util.convert_bin_str_to_int(self.s_type_bin_rs2)
         elif self.type == 'B':
-            return Util.binary_in_string_to_int(self.b_type_bin_rs2)
+            return Util.convert_bin_str_to_int(self.b_type_bin_rs2)
         elif self.type == 'U': # use the same position of rs2 register
-            return Util.binary_in_string_to_int(self.u_type_bin_rs2_log)
+            return Util.convert_bin_str_to_int(self.u_type_bin_rs2_log)
         elif self.type == 'J': # use the same position of rs2 register
-            return Util.binary_in_string_to_int(self.j_type_bin_rs2_log)
+            return Util.convert_bin_str_to_int(self.j_type_bin_rs2_log)
         
     def get_log_line(self):
         return self.log_line
@@ -349,11 +349,6 @@ class Instruction:
         self.opcode = bin_instruction[25:32]
         self.j_type_bin_rd = bin_instruction[20:25]
         self.j_type_bin_immediate_20_10_11_192 = bin_instruction[0:20]
-
-        # self.j_type_bin_immediate_adjusted = self.j_type_bin_immediate_20_10_11_192[0] + \
-        #                                      self.j_type_bin_immediate_20_10_11_192[10:20] + \
-        #                                      self.j_type_bin_immediate_20_10_11_192[9] + \
-        #                                      self.j_type_bin_immediate_20_10_11_192[1:9]
         
         self.j_type_bin_immediate_adjusted = bin_instruction[0] + \
                                         bin_instruction[12:20] + \

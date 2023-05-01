@@ -44,7 +44,7 @@ class Util:
 
      # Converts binary value into integer value  
      @staticmethod
-     def binary_in_string_to_int(bin_value):
+     def convert_bin_str_to_int(bin_value):
           return int(bin_value, 2)
 
      # Converts integer value into hex value formatted with size 
@@ -87,13 +87,11 @@ class Util:
           # returning value
           return bin_str
      
-
-
      # Make the right treatment in the immediate when it has greater than 8 bits
      @staticmethod
      def adjust_bin_immediate_n_bits(bin_immediate, number_of_bits):
           # setting result with the same input value
-          int_result = Util.binary_in_string_to_int(bin_immediate)
+          int_result = Util.convert_bin_str_to_int(bin_immediate)
 
           # adjusting immediate value 
           if bin_immediate[0] == '1':
@@ -119,6 +117,46 @@ class Util:
           # returning the result
           return int_value
 
+     @staticmethod
+     def expand_int_into_slices_8_bits(int_value, number_of_bits):
+          # getting binary in the size of number_of_bits
+          if int_value < 0: # calculate the two's complement 
+               aux = int_value + (1<<number_of_bits)
+               bin_value_str = f'{aux:0{number_of_bits}b}'
+               bin_value_str = bin_value_str[1:]
+          else:  # calculate the original value without complements
+               aux = int_value 
+               bin_value_str = f'{aux:0{number_of_bits}b}'               
+       
+          # slicing at 8 bits size 
+          result = []
+          if number_of_bits == 8:
+               result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
+          elif number_of_bits == 16:
+               result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
+               result.append(Util.convert_bin_str_to_int(bin_value_str[8:16]))
+          elif number_of_bits == 32:
+               result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
+               result.append(Util.convert_bin_str_to_int(bin_value_str[8:16]))
+               result.append(Util.convert_bin_str_to_int(bin_value_str[16:24]))
+               result.append(Util.convert_bin_str_to_int(bin_value_str[24:32]))
+
+          # returning result of data slicing according to number of bits 
+          return result
+
+     @staticmethod
+     def merge_slices_8_bits_into_one_value(int_values):
+          # concatemnating values 
+          bin_value_str = ''
+          for i in range(len(int_values)):
+               bin_value_str += f'{(int_values[i]):08b}'
+
+          # converting the value from binary to integer 
+          int_value = Util.convert_bin_str_to_int(bin_value_str)
+
+          # returning result of data merging 
+          return int_value
+
 
      # # Make the right treatment in the immediate when it has greater than 8 bits
      # @staticmethod
@@ -131,12 +169,7 @@ class Util:
      #      return int_result
 
 
-
-
      # #################################################################################
-
-
-
 
      # # Make the right treatment in the immediate when it has greater than 8 bits
      # @staticmethod
