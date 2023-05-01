@@ -1,0 +1,52 @@
+
+riscv-bin/078.bool:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	fe010113          	add	sp,sp,-32 # 4fffe0 <__BSS_END__+0x4edde0>
+   100ac:	00812e23          	sw	s0,28(sp)
+   100b0:	02010413          	add	s0,sp,32
+   100b4:	fe042623          	sw	zero,-20(s0)
+   100b8:	fec42783          	lw	a5,-20(s0)
+   100bc:	01f7e793          	or	a5,a5,31
+   100c0:	fef42423          	sw	a5,-24(s0)
+   100c4:	fe042423          	sw	zero,-24(s0)
+   100c8:	fec42783          	lw	a5,-20(s0)
+   100cc:	00f7e793          	or	a5,a5,15
+   100d0:	fef42423          	sw	a5,-24(s0)
+   100d4:	fe042423          	sw	zero,-24(s0)
+   100d8:	fec42783          	lw	a5,-20(s0)
+   100dc:	0117e793          	or	a5,a5,17
+   100e0:	fef42423          	sw	a5,-24(s0)
+   100e4:	fe042423          	sw	zero,-24(s0)
+   100e8:	fec42783          	lw	a5,-20(s0)
+   100ec:	1017e793          	or	a5,a5,257
+   100f0:	fff7c793          	not	a5,a5
+   100f4:	fef42423          	sw	a5,-24(s0)
+   100f8:	fe042423          	sw	zero,-24(s0)
+   100fc:	fec42783          	lw	a5,-20(s0)
+   10100:	1117e793          	or	a5,a5,273
+   10104:	fff7c793          	not	a5,a5
+   10108:	fef42423          	sw	a5,-24(s0)
+   1010c:	fe042423          	sw	zero,-24(s0)
+   10110:	fec42703          	lw	a4,-20(s0)
+   10114:	000017b7          	lui	a5,0x1
+   10118:	fff78793          	add	a5,a5,-1 # fff <_start-0xf095>
+   1011c:	00f767b3          	or	a5,a4,a5
+   10120:	fff7c793          	not	a5,a5
+   10124:	fef42423          	sw	a5,-24(s0)
+   10128:	fe042423          	sw	zero,-24(s0)
+   1012c:	00000793          	li	a5,0
+   10130:	00078513          	mv	a0,a5
+   10134:	01c12403          	lw	s0,28(sp)
+   10138:	02010113          	add	sp,sp,32
+   1013c:	00008067          	ret

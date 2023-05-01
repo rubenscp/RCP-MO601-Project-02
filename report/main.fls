@@ -1406,14 +1406,14 @@ INPUT Tarefas\ambiente_desenvolvimentoral.tex
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmri7t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1200.tfm
-INPUT .\Tarefas\algoritmo_simulacao.tex
-INPUT .\Tarefas\algoritmo_simulacao.tex
-INPUT .\Tarefas\algoritmo_simulacao.tex
-INPUT Tarefas\algoritmo_simulacao.tex
-INPUT .\Tarefas\algoritmo_simulacao.tex
-INPUT .\Tarefas\algoritmo_simulacao.tex
-INPUT Tarefas\algoritmo_simulacao.tex
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
+INPUT .\Tarefas\algoritmo_simulacao.tex
+INPUT .\Tarefas\algoritmo_simulacao.tex
+INPUT .\Tarefas\algoritmo_simulacao.tex
+INPUT Tarefas\algoritmo_simulacao.tex
+INPUT .\Tarefas\algoritmo_simulacao.tex
+INPUT .\Tarefas\algoritmo_simulacao.tex
+INPUT Tarefas\algoritmo_simulacao.tex
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmti12.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx8.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmtt12.tfm
@@ -1438,8 +1438,6 @@ INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx8.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmbx8.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
-INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmr12.pfb
 INPUT C:\Program Files\MiKTeX\fonts\type1\public\amsfonts\cm\cmti12.pfb

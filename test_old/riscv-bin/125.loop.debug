@@ -1,0 +1,73 @@
+
+riscv-bin/125.loop:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	fd010113          	add	sp,sp,-48 # 4fffd0 <__BSS_END__+0x4eddd0>
+   100ac:	02812623          	sw	s0,44(sp)
+   100b0:	03010413          	add	s0,sp,48
+   100b4:	000107b7          	lui	a5,0x10
+   100b8:	19478793          	add	a5,a5,404 # 10194 <main+0xec>
+   100bc:	fef42223          	sw	a5,-28(s0)
+   100c0:	000107b7          	lui	a5,0x10
+   100c4:	1c078793          	add	a5,a5,448 # 101c0 <main+0x118>
+   100c8:	fef42023          	sw	a5,-32(s0)
+   100cc:	000107b7          	lui	a5,0x10
+   100d0:	1dc78793          	add	a5,a5,476 # 101dc <main+0x134>
+   100d4:	fcf42e23          	sw	a5,-36(s0)
+   100d8:	fe442783          	lw	a5,-28(s0)
+   100dc:	fef42623          	sw	a5,-20(s0)
+   100e0:	fe042423          	sw	zero,-24(s0)
+   100e4:	01c0006f          	j	10100 <main+0x58>
+   100e8:	fec42783          	lw	a5,-20(s0)
+   100ec:	00178793          	add	a5,a5,1
+   100f0:	fef42623          	sw	a5,-20(s0)
+   100f4:	fe842783          	lw	a5,-24(s0)
+   100f8:	00178793          	add	a5,a5,1
+   100fc:	fef42423          	sw	a5,-24(s0)
+   10100:	fec42783          	lw	a5,-20(s0)
+   10104:	0007c783          	lbu	a5,0(a5)
+   10108:	fe0790e3          	bnez	a5,100e8 <main+0x40>
+   1010c:	fe042423          	sw	zero,-24(s0)
+   10110:	fe042783          	lw	a5,-32(s0)
+   10114:	fef42623          	sw	a5,-20(s0)
+   10118:	fe042423          	sw	zero,-24(s0)
+   1011c:	01c0006f          	j	10138 <main+0x90>
+   10120:	fec42783          	lw	a5,-20(s0)
+   10124:	00178793          	add	a5,a5,1
+   10128:	fef42623          	sw	a5,-20(s0)
+   1012c:	fe842783          	lw	a5,-24(s0)
+   10130:	00178793          	add	a5,a5,1
+   10134:	fef42423          	sw	a5,-24(s0)
+   10138:	fec42783          	lw	a5,-20(s0)
+   1013c:	0007c783          	lbu	a5,0(a5)
+   10140:	fe0790e3          	bnez	a5,10120 <main+0x78>
+   10144:	fe042423          	sw	zero,-24(s0)
+   10148:	fdc42783          	lw	a5,-36(s0)
+   1014c:	fef42623          	sw	a5,-20(s0)
+   10150:	fe042423          	sw	zero,-24(s0)
+   10154:	01c0006f          	j	10170 <main+0xc8>
+   10158:	fec42783          	lw	a5,-20(s0)
+   1015c:	00178793          	add	a5,a5,1
+   10160:	fef42623          	sw	a5,-20(s0)
+   10164:	fe842783          	lw	a5,-24(s0)
+   10168:	00178793          	add	a5,a5,1
+   1016c:	fef42423          	sw	a5,-24(s0)
+   10170:	fec42783          	lw	a5,-20(s0)
+   10174:	0007c783          	lbu	a5,0(a5)
+   10178:	fe0790e3          	bnez	a5,10158 <main+0xb0>
+   1017c:	fe042423          	sw	zero,-24(s0)
+   10180:	00000793          	li	a5,0
+   10184:	00078513          	mv	a0,a5
+   10188:	02c12403          	lw	s0,44(sp)
+   1018c:	03010113          	add	sp,sp,48
+   10190:	00008067          	ret

@@ -1,2 +1,0 @@
-Test name   : test_11
-Description : Latch-SR tipo D - https://embarcados.com.br/latch/#Flip-Flop

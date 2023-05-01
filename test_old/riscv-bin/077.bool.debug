@@ -1,0 +1,55 @@
+
+riscv-bin/077.bool:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	fe010113          	add	sp,sp,-32 # 4fffe0 <__BSS_END__+0x4edde0>
+   100ac:	00812e23          	sw	s0,28(sp)
+   100b0:	02010413          	add	s0,sp,32
+   100b4:	fe000793          	li	a5,-32
+   100b8:	fef42623          	sw	a5,-20(s0)
+   100bc:	fce00793          	li	a5,-50
+   100c0:	fef42423          	sw	a5,-24(s0)
+   100c4:	fe042223          	sw	zero,-28(s0)
+   100c8:	fec42783          	lw	a5,-20(s0)
+   100cc:	fce7a793          	slti	a5,a5,-50
+   100d0:	0ff7f793          	zext.b	a5,a5
+   100d4:	fef42223          	sw	a5,-28(s0)
+   100d8:	fe042223          	sw	zero,-28(s0)
+   100dc:	ffb00793          	li	a5,-5
+   100e0:	fef42423          	sw	a5,-24(s0)
+   100e4:	fec42783          	lw	a5,-20(s0)
+   100e8:	ffb7a793          	slti	a5,a5,-5
+   100ec:	0ff7f793          	zext.b	a5,a5
+   100f0:	fef42223          	sw	a5,-28(s0)
+   100f4:	fe042223          	sw	zero,-28(s0)
+   100f8:	0c800793          	li	a5,200
+   100fc:	fef42623          	sw	a5,-20(s0)
+   10100:	0fa00793          	li	a5,250
+   10104:	fef42423          	sw	a5,-24(s0)
+   10108:	fec42783          	lw	a5,-20(s0)
+   1010c:	0fa7a793          	slti	a5,a5,250
+   10110:	0ff7f793          	zext.b	a5,a5
+   10114:	fef42223          	sw	a5,-28(s0)
+   10118:	fe042223          	sw	zero,-28(s0)
+   1011c:	0d200793          	li	a5,210
+   10120:	fef42423          	sw	a5,-24(s0)
+   10124:	fec42783          	lw	a5,-20(s0)
+   10128:	0d27a793          	slti	a5,a5,210
+   1012c:	0ff7f793          	zext.b	a5,a5
+   10130:	fef42223          	sw	a5,-28(s0)
+   10134:	fe042223          	sw	zero,-28(s0)
+   10138:	00000793          	li	a5,0
+   1013c:	00078513          	mv	a0,a5
+   10140:	01c12403          	lw	s0,28(sp)
+   10144:	02010113          	add	sp,sp,32
+   10148:	00008067          	ret

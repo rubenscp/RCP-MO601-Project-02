@@ -1,31 +1,31 @@
 \section{Algoritmo de Simulação}
 
-O algoritmo do simulador básico de circuitos lógicos é apresentado em \textit{algorithm \ref{alg:simulacao}}.
+O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{algorithm \ref{alg:simulacao}}.
 
 \BlankLine
 
 \begin{algorithm}[ht]
-    \caption{Algoritmo do simulador básico de circuitos lógicos}
+    \caption{Algoritmo do simulador do processador RISC-V RV32IM.}
     \label{alg:simulacao}
     
     % defining key words to use in the text
     \SetKwInput{KwEntrada}{Entrada}
     \SetKwInOut{KwSaida}{Saída}
-    \SetKwFunction{KwExecutarSimulacao}{ExecutarSimulação}
+    \SetKwFunction{KwSimularExecucaoPrograma}{SimularExecucaoPrograma}
 
     \SetAlgoLined
     
     \BlankLine
 
-    \KwEntrada {\textit{testes específicos, circuito.hdl, estimulos.txt}}
+    \KwEntrada {\textit{programa compilado/linked}}
 
     \BlankLine
 
-    \KwSaida {$saida0.csv, saida1.csv$}
+    \KwSaida {\textit{arquivo de log de saída programa compilado exemplo: 000.main.log}}
 
     \BlankLine
 
-    \KwExecutarSimulacao{circuito, estímulos, atraso}    
+    \KwSimularExecucaoPrograma{programa compilado}    
     \Begin{
 
         inicializar circuito atribuindo valor 0 a todas as variáveis
@@ -90,27 +90,22 @@ O algoritmo do simulador básico de circuitos lógicos é apresentado em \textit
 
     \BlankLine
 
-    \CommentSty{/* Programa principal que gerencia a execução da simulação dos testes.*/}
+    \CommentSty{/* Programa principal que gerencia a simulação de programas no processador RISC-V RV32IM*/}
 
     \BlankLine
 
-    \ForEach{teste específico}
+    \ForEach{programa compilado}
     {    
-        ler dados de entrada
-
-        criar circuito
+        ler programa compilado
 
         \BlankLine
         
-        \KwExecutarSimulacao{circuito, estímulos, 0}    
-
-        gerar arquivo de saída da simulação do circuito com atraso 0 (\textit{saida0}) 
+        \KwSimularExecucaoPrograma{programa compilado}    
 
         \BlankLine
 
-        \KwExecutarSimulacao{circuito, estímulos, 1}    
-        
-        gerar arquivo de saída da simulação do circuito com atraso 1 (\textit{saida1}) 
+        gerar arquivo de log de saída do programa compilado 
+
     } 
 
 \end{algorithm}

@@ -1,18 +1,31 @@
 """
-Project: 02 - A simulator of the RISC-V processor
+Project: 02 - A simulator of the RISC-V RV32IM processor
 Professor: Rodolfo Jardim de Azevedo
 Student: Rubens de Castro Pereira
 Date: 12/04/2023
 Version: 1.0
 """
 
+"""
+Some acronyms used in this project:
+
+1. ISA: Instruction Set Architecture
+2. RISC: Reduced Instruction Set Computer
+
+"""
+
 # ###########################################
 # Importing Libraries
 # ###########################################
-import os
-import pandas as pd
+# import string
+# import ast
+# import subprocess
+# import requests
 
-from Circuit import Circuit
+import os
+import shutil
+
+from RiscVProcessor import RiscVProcessor
 
 
 # ###########################################
@@ -24,149 +37,69 @@ from Circuit import Circuit
 # Application Methods
 # ###########################################
 
-# Check if test has all necessary files to simulating the logical circuit 
-def check_test_files(test, subtest_path):
-    error = False 
+# do_not_process = ['061.div.debug', '062.div.debug', '063.div.debug', '064.div.debug', '065.div.debug', \
+#                   '066.div.debug', '067.div.debug', '068.div.debug', '069.div.debug', \
+#                   '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
+#                   '131.call.debug', '132.call.debug', '133.call.debug', '134.call.debug', \
+#                   '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
+#                   '081.shift.debug', '082.shift.debug', '083.shift.debug', '084.shift.debug', '085.shift.debug', '086.shift.debug', \
+#                   '201.atomic.debug', 
+#                  ]
 
-    file = 'circuito.hdl'
-    if not os.path.isfile(subtest_path + file):
-        print(f'ERROR: File "{file}" does not exist in "{test}"')
-        error = True 
+# do_not_process = ['061.div.debug', '062.div.debug', '063.div.debug', '064.div.debug', '065.div.debug', \
+#                   '066.div.debug', '067.div.debug', '068.div.debug', '069.div.debug', \
+#                   '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
+#                   '086.shift.debug', \
+#                   '131.call.debug', '132.call.debug', '133.call.debug', '134.call.debug', \
+#                   '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
+#                   '201.atomic.debug'
+#                   ]
 
-    file = 'estimulos.txt'
-    if not os.path.isfile(subtest_path + file):
-        print(f'ERROR: File "{file}" does not exist in "{test}"')
-        error = True 
+do_not_process = ['133.call.debug', '134.call.debug', \
+                  '121.loop.debug', '122.loop.debug', '123.loop.debug', '124.loop.debug', '125.loop.debug', '126.loop.debug', \
+                  '141.array.debug', '142.array.debug', '143.array.debug', '144.array.debug', '145.array.debug', '146.array.debug', \
+                  ]
 
-    # file = 'esperado0.csv'
-    # if not os.path.isfile(subtest_path + file):
-    #     print(f'ERROR: File "{file}" does not exist in "{test}"')
-    #     error = True 
+# do_not_process = []
 
-    # file = 'esperado1.csv'
-    # if not os.path.isfile(subtest_path + file):
-    #     print(f'ERROR: File "{file}" does not exist in "{test}"')
-    #     error = True 
+def remove_log_files(test_path_log):
 
-    # printing result
-    if not error:
-        print(f'> Test files are ok.')
-    # returning checking result 
-    return error
-
-
-# Read the input data: logical circuit and its stimuli
-def read_input_data(path, circuit_filename, stimuli_filename):
-
-    # getting the logical circuit 
-    df_circuit = pd.read_csv(path + circuit_filename, header=None, delimiter=' ', names=range(5))
-    print()    
-    print(f'circuit \n{df_circuit}')
-
-    # getting the stimuli 
-    df_stimuli = pd.read_csv(path + stimuli_filename, header=None, delimiter=' ', dtype=str)
-    
-    # preprocessing stimulus lines 
-    lst_stimuli = df_stimuli.values.tolist()
-    lst_stimuli_detailed = []
-    for stimulus in lst_stimuli:
-        if len(stimulus[0]) == 1:
-            lst_stimuli_detailed.append(stimulus)
-        else:
-            if stimulus[0][:1] == '+':
-                lst_stimuli_detailed.append(stimulus)
-            else: 
-                left = stimulus[0]
-                right = stimulus[2]
-                for i in range(len(stimulus[0])):
-                    new_stimulus = [left[i], '=', right[i]]
-                    lst_stimuli_detailed.append(new_stimulus)
-                
-    print() 
-    print(f'stimuli \n{df_stimuli}')
-
-    # returning logical circuit and stimuli
-    return df_circuit, lst_stimuli_detailed
-
-
-# Save results of simulation
-def save_results(path, result_filename, results, test_name, test_description):
-    
-    # setting the output filename in csv format 
-    output_filename_csv = path + result_filename + '.csv'
-
-    # removing files to save if exists 
-    if os.path.exists(output_filename_csv):
-        os.remove(output_filename_csv)     
-
-    # creating text file and saving results
-    with open(output_filename_csv, 'w') as output_csv_file:
-        for result in results:
-            output_csv_file.write(result + '\n')
-
-    # closing text file 
-    output_csv_file.close()  
-
-    # setting the output filename with test details  
-    output_filename_details = path + result_filename + '_details.txt'
-
-    # removing files to save if exists 
-    if os.path.exists(output_filename_details):
-        os.remove(output_filename_details)     
-
-    # creating text file and saving results
-    with open(output_filename_details, 'w') as output_details_file:
-        output_details_file.write('Test name   : ' + test_name + '\n')
-        output_details_file.write('Description : ' + test_description + '\n')
-
-    # closing text file 
-    output_details_file.close()  
-
-# Process all steps of test 
-def process_test(test_name, test_path, test_description):
-
-    print()
-    print(f'#'*50)
-    print(f'Processing "{test_name} - {test_description}"')
-    print(f'#'*50)
-
-    # setting subtest path 
-    subtest_path = test_path + test_name + '/'
-
-    # 1) checking test files 
-    print()
-    print(f'1) Checking test files')
-    if check_test_files(test_name, subtest_path):
+    # checking if exists the path 
+    if not os.path.exists(test_path_log):
+        # creating path test log 
+        os.mkdir(test_path_log)
         return 
-
-    # 2) Reading the input data
-    print()
-    print(f'2) Reading input data')
-    df_circuit, lst_stimuli = read_input_data(subtest_path, "circuito.hdl", "estimulos.txt")
         
-    # 3) Creating circuit object
-    print()
-    print(f'3) Creating logical circuit')
-    circuit = Circuit(df_circuit)
-    # circuit.show_variables()
-    # circuit.show_components()
+    # removing all log files 
+    files_in_directory = os.listdir(test_path_log)
+    filtered_files = [file for file in files_in_directory if file.endswith(".log")]
+    for file in filtered_files:
+        path_to_file = os.path.join(test_path_log, file)
+        os.remove(path_to_file)
 
-    # 4) Simulating the logical circuit 
-    print()
-    print(f'4) Simulating logical circuit')
+def read_program(program_name, test_path):
 
-    # running simulation with delay = 0
-    results = circuit.run_simulation(lst_stimuli, circuit.DELAY_0)
+    # read program 
+    with open(test_path + program_name) as file:
+        program = file.readlines()
+        
+    # returning program 
+    return program 
 
-    # saving results to "saida" text file 
-    save_results(subtest_path, 'saida0', results, test_name, test_description)
+# Simulate execution RISCV program
+def simulate_execution_program(riscv_processor, program_name, test_path, test_path_log, show_print):
 
-    # running simulation with delay = 1
-    results = circuit.run_simulation(lst_stimuli, circuit.DELAY_1)
+    # reading program in debug format
+    c_program_assembly = read_program(program_name, test_path)
 
-    # saving results to "saida" text file 
-    save_results(subtest_path, 'saida1', results, test_name, test_description)
+    # initializing memory 
+    riscv_processor.initialize()
 
+    # reading program lines and putting then into the memory 
+    riscv_processor.load_program_assembler_into_memory(c_program_assembly, show_print)
+
+    # executing program from meory 
+    riscv_processor.execute_program_from_memory(program_name, test_path_log, show_print)
 
 # ###########################################
 # Main method
@@ -174,58 +107,63 @@ def process_test(test_name, test_path, test_description):
 if __name__ == '__main__':
     # setting paths and file names
     root_path = os.getcwd().replace("\\", "/") + "/"
+    # test_path = root_path + 'test/riscv-bin/'
     test_path = root_path + 'test/'
+    test_path_log = test_path + 'log/'
 
-    # setting possible test folders
-    simulate_test_folders = {'test_01' : [True, 'Sample of the Project 1 - one stimulus per line '], 
-                             'test_02' : [True, 'Sample of the Project 1 - many stimulus per line '], 
-                             'test_03' : [True, 'Sample of the Project 1 - one stimulus per line with time cycles > 1'], 
-                             'test_04' : [True, 'Sample from website https://www.makerhero.com/blog/circuitos-logicos-logica-booleana-em-cis/ '], 
-                             'test_05' : [True, 'Teste 05'], 
-                             'test_06' : [True, 'Teste 06'], 
-                             'test_07' : [True, 'Teste 07'], 
-                             'test_08' : [True, 'Teste 08'], 
-                             'test_09' : [True, 'Teste 09'], 
-                             'test_10' : [True, 'Teste 10'], 
-                             'test_11' : [True, 'Latch-SR tipo D - https://embarcados.com.br/latch/#Flip-Flop'], 
-                             'test_12' : [True, 'Teste fornecido pelo Casio Pacheco Krebs - +1'], 
-                             'test_13' : [True, 'Teste fornecido pelo Casio Pacheco Krebs - +2'], 
-                             'test_14' : [True, 'Teste fornecido pelo Casio Pacheco Krebs - Latch tipo D'], 
-                             'test_15' : [True, 'Teste 15'], 
-                             'test_16' : [True, 'Teste 16'], 
-                             'test_17' : [True, 'Teste 17'], 
-                             'test_18' : [True, 'Teste 18'], 
-                             'test_19' : [True, 'Teste 19'], 
-                             'test_20' : [True, 'Teste 20'],
-                             'test_21' : [True, 'Teste 21'],
-                             'test_22' : [True, 'Teste 22'],
-                             'test_23' : [True, 'Teste 23'],
-                             'test_24' : [True, 'Teste 24'],
-                             'test_25' : [True, 'Teste 25'],
-                             'test_26' : [True, 'Teste 26'],
-                             'test_27' : [True, 'Teste 27'],
-                             'test_28' : [True, 'Teste 28'],
-                             'test_29' : [True, 'Teste 29'],
-                             'test_30' : [True, 'Teste 30']
-                            }
+    # remove all old log files
+    remove_log_files(test_path_log)
+          
+    # setting parameters of RISCV processor 
+    number_of_registers = 32
+    memory_size = 16 * 1024 * 1024
 
-    # processing each test case definied in the folder tests 
-    tests = [f for f in os.listdir(test_path)]
-    tests = sorted(tests)
-    for test in tests:
-        if test == 'desktop.ini' or \
-            test.find('zip') != -1: continue
-        
-        test_name = 'teste sem descrição.'            
-        if simulate_test_folders.get(test) != None:
-            # print()
-            # print(f'{test} - {simulate_test_folders[test][1].strip()} isn\'t able to simulate.')
-            # print()            
-            test_name = simulate_test_folders[test][1].strip()           
+    # creating RISCV Processor instance
+    riscv_processor = RiscVProcessor(number_of_registers, memory_size)
+    print(f'Size of RAM: {memory_size} bytes >> {memory_size / 1024 / 1024} MBytes' )
 
-        # processing test 
-        process_test(test, test_path, test_name)
+    # processing each c program from ACStone in the folder tests 
+    programs = [f for f in os.listdir(test_path)]
+    programs = sorted(programs)
+    count = 0
+    for program_name in programs:
 
+        # define printing of messages into the terminal 
+        show_print = False
+
+        if program_name in do_not_process: continue
+
+        # program_name_debug = '000.main.debug'
+        # program_name_debug = '142.array.debug'
+        # program_name_debug = '121.loop.debug'
+        program_name_debug = ''
+        if program_name_debug != '':
+            if program_name_debug == program_name:
+               show_print = True 
+            else:
+                continue
+
+        # Don't processing programs with the pattern at the filename
+        # if program_name.find('.div.') > 0: continue
+        # if program_name.find('.bool.') > 0: continue
+        # if program_name.find('.shift.') > 0: continue
+        # if program_name.find('.if.') > 0: continue
+        # # if program_name.find('.loop.') > 0: continue
+        # if program_name.find('.call.') > 0: continue
+        # if program_name.find('.array.') > 0: continue
+
+        # if program_name.find('.loop.') > 0: x = 0
+        # else: continue
+
+        # if program_name == " 086.shift.debug": continue
+
+        if program_name.find('.debug') > 0: 
+            # processing test 
+            print(f'Simulating running of program {program_name}')
+
+            # simulating the execution of program 
+            simulate_execution_program(riscv_processor, program_name, test_path, test_path_log, show_print)
+            
     print()
     print(f'End of Simulation')
     print()

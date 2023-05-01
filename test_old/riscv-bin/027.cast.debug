@@ -1,0 +1,49 @@
+
+riscv-bin/027.cast:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	fe010113          	add	sp,sp,-32 # 4fffe0 <__BSS_END__+0x4edde0>
+   100ac:	00812e23          	sw	s0,28(sp)
+   100b0:	02010413          	add	s0,sp,32
+   100b4:	fff00793          	li	a5,-1
+   100b8:	fef407a3          	sb	a5,-17(s0)
+   100bc:	fff00793          	li	a5,-1
+   100c0:	fef41623          	sh	a5,-20(s0)
+   100c4:	fef44783          	lbu	a5,-17(s0)
+   100c8:	fef41623          	sh	a5,-20(s0)
+   100cc:	fe041623          	sh	zero,-20(s0)
+   100d0:	fff00793          	li	a5,-1
+   100d4:	fef41623          	sh	a5,-20(s0)
+   100d8:	fff00793          	li	a5,-1
+   100dc:	fef42423          	sw	a5,-24(s0)
+   100e0:	fec45783          	lhu	a5,-20(s0)
+   100e4:	fef42423          	sw	a5,-24(s0)
+   100e8:	fe042423          	sw	zero,-24(s0)
+   100ec:	fff00793          	li	a5,-1
+   100f0:	fef42423          	sw	a5,-24(s0)
+   100f4:	fff00713          	li	a4,-1
+   100f8:	fff00793          	li	a5,-1
+   100fc:	fee42023          	sw	a4,-32(s0)
+   10100:	fef42223          	sw	a5,-28(s0)
+   10104:	fe842783          	lw	a5,-24(s0)
+   10108:	fef42023          	sw	a5,-32(s0)
+   1010c:	fe042223          	sw	zero,-28(s0)
+   10110:	00000793          	li	a5,0
+   10114:	00000813          	li	a6,0
+   10118:	fef42023          	sw	a5,-32(s0)
+   1011c:	ff042223          	sw	a6,-28(s0)
+   10120:	00000793          	li	a5,0
+   10124:	00078513          	mv	a0,a5
+   10128:	01c12403          	lw	s0,28(sp)
+   1012c:	02010113          	add	sp,sp,32
+   10130:	00008067          	ret

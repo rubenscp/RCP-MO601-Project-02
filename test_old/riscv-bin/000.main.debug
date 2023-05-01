@@ -1,0 +1,22 @@
+
+riscv-bin/000.main:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	ff010113          	add	sp,sp,-16 # 4ffff0 <__BSS_END__+0x4edef0>
+   100ac:	00812623          	sw	s0,12(sp)
+   100b0:	01010413          	add	s0,sp,16
+   100b4:	00000793          	li	a5,0
+   100b8:	00078513          	mv	a0,a5
+   100bc:	00c12403          	lw	s0,12(sp)
+   100c0:	01010113          	add	sp,sp,16
+   100c4:	00008067          	ret

@@ -1,0 +1,40 @@
+
+riscv-bin/013.const:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00010094 <_start>:
+   10094:	00500137          	lui	sp,0x500
+   10098:	010000ef          	jal	100a8 <main>
+   1009c:	200002b7          	lui	t0,0x20000
+   100a0:	000280e7          	jalr	t0 # 20000000 <memory_size>
+   100a4:	00100073          	ebreak
+
+000100a8 <main>:
+   100a8:	fe010113          	add	sp,sp,-32 # 4fffe0 <__BSS_END__+0x4edde0>
+   100ac:	00812e23          	sw	s0,28(sp)
+   100b0:	02010413          	add	s0,sp,32
+   100b4:	000057b7          	lui	a5,0x5
+   100b8:	55578793          	add	a5,a5,1365 # 5555 <_start-0xab3f>
+   100bc:	fef41723          	sh	a5,-18(s0)
+   100c0:	ffffb7b7          	lui	a5,0xffffb
+   100c4:	aaa78793          	add	a5,a5,-1366 # ffffaaaa <memory_size+0xdfffaaaa>
+   100c8:	fef41723          	sh	a5,-18(s0)
+   100cc:	fe041723          	sh	zero,-18(s0)
+   100d0:	fff00793          	li	a5,-1
+   100d4:	fef41723          	sh	a5,-18(s0)
+   100d8:	ffff87b7          	lui	a5,0xffff8
+   100dc:	fef41723          	sh	a5,-18(s0)
+   100e0:	00100793          	li	a5,1
+   100e4:	fef41723          	sh	a5,-18(s0)
+   100e8:	ffff87b7          	lui	a5,0xffff8
+   100ec:	fff7c793          	not	a5,a5
+   100f0:	fef41723          	sh	a5,-18(s0)
+   100f4:	ffe00793          	li	a5,-2
+   100f8:	fef41723          	sh	a5,-18(s0)
+   100fc:	00000793          	li	a5,0
+   10100:	00078513          	mv	a0,a5
+   10104:	01c12403          	lw	s0,28(sp)
+   10108:	02010113          	add	sp,sp,32
+   1010c:	00008067          	ret
