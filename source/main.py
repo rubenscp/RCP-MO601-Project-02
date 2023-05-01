@@ -131,17 +131,20 @@ if __name__ == '__main__':
         # define printing of messages into the terminal 
         show_print = False
 
-        if program_name in do_not_process: continue
 
         # program_name_debug = '000.main.debug'
         # program_name_debug = '142.array.debug'
         # program_name_debug = '121.loop.debug'
-        program_name_debug = ''
+        program_name_debug = '133.call.debug'
+        # program_name_debug = ''
         if program_name_debug != '':
+            do_not_process = []
             if program_name_debug == program_name:
                show_print = True 
             else:
                 continue
+
+        if program_name in do_not_process: continue
 
         # Don't processing programs with the pattern at the filename
         # if program_name.find('.div.') > 0: continue

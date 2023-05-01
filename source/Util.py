@@ -112,13 +112,31 @@ class Util:
           elif number_of_bits == 32:
                bin_value_str = f'{int_value:032b}'
 
-
           # adjusting immediate value 
           if bin_value_str[0] == '1':
                int_value -= (1<<number_of_bits)
 
           # returning the result
           return int_value
+
+
+     # # Make the right treatment in the immediate when it has greater than 8 bits
+     # @staticmethod
+     # def convert_int_to_bin_adjust_12bits(int_value):
+     #      # converting integer value to binary value 
+     #      bin_value = f'{int_value:012b}'
+
+     #      # adjusting value 
+     #      int_result = Util.adjust_bin_immediate_12bits(bin_value)
+     #      return int_result
+
+
+
+
+     # #################################################################################
+
+
+
 
      # # Make the right treatment in the immediate when it has greater than 8 bits
      # @staticmethod
@@ -173,16 +191,6 @@ class Util:
      #      # returning the result
      #      return int_result
 
-
-     # Make the right treatment in the immediate when it has greater than 8 bits
-     @staticmethod
-     def convert_int_to_bin_adjust_12bits(int_value):
-          # converting integer value to binary value 
-          bin_value = f'{int_value:012b}'
-
-          # adjusting value 
-          int_result = Util.adjust_bin_immediate_12bits(bin_value)
-          return int_result
 
      # Make the right treatment in the immediate when it has greater than 8 bits
      # @staticmethod

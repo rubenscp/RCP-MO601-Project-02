@@ -103,9 +103,9 @@ class RiscVProcessor:
             if self.int_program_counter == 0:
                 self.int_program_counter = int_memory_address
             
-        print(f'self.program_counter_register - endereço inicio: {self.int_program_counter}' + \
-              f'  self.memory_max_address: {self.memory_max_address}'
-              )
+        # print(f'self.program_counter_register - endereço inicio: {self.int_program_counter}' + \
+        #       f'  self.memory_max_address: {self.memory_max_address}'
+        #       )
 
     # execute program from memory 
     def execute_program_from_memory(self, program_name, test_path_log, show_print):
@@ -151,7 +151,7 @@ class RiscVProcessor:
                                                                    self.registers)
             
             # executing the instruction
-            self.executeInstruction(current_instruction, show_print)
+            self.execute_instruction(current_instruction, show_print)
 
             # write log 
             self.log.write_instruction_log_line(current_instruction)
@@ -165,7 +165,7 @@ class RiscVProcessor:
 
 
     # execute the instruction 
-    def executeInstruction(self, instruction, show_print):
+    def execute_instruction(self, instruction, show_print):
 
         if instruction.type == 'R':
             self.executeBaseInstruction_R_type(instruction, show_print)
@@ -1249,7 +1249,6 @@ class RiscVProcessor:
         # executing instruction  
         # Implementation:	Fence(pred, succ)
 
-
         # preparing log line of the instruction 
         # Format:	fence pred, succ
         instruction.log_hex_rd = 'x' + f'{instruction.get_int_register_pointed_by_rd():02d}' + \
@@ -1267,7 +1266,6 @@ class RiscVProcessor:
 
         # executing instruction  
         # Implementation:	Fence(Store, Fetch)
-
 
         # preparing log line of the instruction 
         # Format:	fencei
@@ -1288,7 +1286,6 @@ class RiscVProcessor:
         # executing instruction  
         # Implementation:	RaiseException(EnvironmentCall)
 
-
         # preparing log line of the instruction 
         # Format:	ecall
         instruction.log_hex_rd = 'x' + f'{instruction.get_int_register_pointed_by_rd():02d}' + \
@@ -1304,7 +1301,6 @@ class RiscVProcessor:
 
         # executing instruction  
         # Implementation:	RaiseException(Breakpoint)
-
 
         # preparing log line of the instruction 
         # Format:	ebreak
@@ -1322,13 +1318,13 @@ class RiscVProcessor:
         # Implementation:	t = CSRs[csr]; CSRs[csr] = x[rs1]; x[rd] = t
 
         # t = CSRs[csr]; 
-        int_t = instruction.i_type_bin_immediate_11_0
+        # int_t = instruction.i_type_bin_immediate_11_0
+
         # CSRs[csr] = x[rs1]; 
-        # instruction.i_type_bin_immediate_11_0 = Util.converte_decimal_binario_string + \
-        #                                         self.registers[instruction.get_int_register_pointed_by_rs1()]
-        instruction.i_type_bin_immediate_11_0 = self.registers[instruction.get_int_register_pointed_by_rs1()]
+        # instruction.i_type_bin_immediate_11_0 = self.registers[instruction.get_int_register_pointed_by_rs1()]
+
         # x[rd] = t
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int_t
+        # self.registers[instruction.get_int_register_pointed_by_rd()] = int_t
 
         # preparing log line of the instruction 
         # Format:	csrrw rd,offset,rs1
@@ -1606,8 +1602,8 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] == x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] == self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] == \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter +=  instruction.b_type_int_offset_sexted
         else: 
@@ -1630,7 +1626,6 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] != x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
 
         # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
         #     + f' type: {instruction.type}' \
@@ -1644,7 +1639,8 @@ class RiscVProcessor:
         #     + f' pc: {self.int_program_counter}' \
         #     )
 
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] != self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] != \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1679,8 +1675,8 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] <s x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] < self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] < \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1703,7 +1699,6 @@ class RiscVProcessor:
         # executing instruction
         # Implementation:	if (x[rs1] >=s x[rs2]) pc += sext(offset) 
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
         if self.registers[instruction.get_int_register_pointed_by_rs1()] >= self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
@@ -1727,7 +1722,6 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] <u x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
         if abs(self.registers[instruction.get_int_register_pointed_by_rs1()]) < abs(self.registers[instruction.get_int_register_pointed_by_rs2()]):
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
@@ -1751,9 +1745,8 @@ class RiscVProcessor:
         # executing instruction 
         # Implementation:	if (x[rs1] >=u x[rs2]) pc += sext(offset)
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        # int_offset_memory_address = Util.binary_in_string_to_int(instruction.b_type_bin_immediate_adjusted) * 2
-
-        if abs(self.registers[instruction.get_int_register_pointed_by_rs1()]) >= abs(self.registers[instruction.get_int_register_pointed_by_rs2()]):
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] >= \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1809,7 +1802,6 @@ class RiscVProcessor:
         # executing instruction   
         # x[rd] = sext(immediate[31:12] << 12)         
         immediate_plus_12_zeros_shifted = instruction.u_type_bin_immediate_31_12 + '0'*12
-        # int_immediate_adjusted = Util.adjust_immediate_32bits(immediate_plus_12_zeros_shifted)
         int_immediate_adjusted = Util.adjust_bin_immediate_n_bits(immediate_plus_12_zeros_shifted, \
                                                                     len(immediate_plus_12_zeros_shifted))     
       
@@ -1868,27 +1860,6 @@ class RiscVProcessor:
 
             # pc += sext(offset)
             self.int_program_counter = self.int_program_counter + instruction.j_type_int_offset_sexted
-
-
-            # recalculating the immediate value considering the memory addresses must be multiple of 4 bytes
-            # to set the PC
-            # xxx1 = instruction.j_type_bin_immediate_adjusted
-            # xxx2 = Util.binary_in_string_to_int(instruction.j_type_bin_immediate_adjusted)
-            # int_immediate_adjusted = Util.binary_in_string_to_int(instruction.j_type_bin_immediate_adjusted) * 4
-            # int_immediate_adjusted = Util.binary_in_string_to_int(instruction.j_type_bin_immediate_adjusted)
-
-            # pc += sext(offset)
-            # xxx1 = (int_immediate_adjusted & 0x8000) 
-            # xxx2 = (int_immediate_adjusted & 0x7fff)
-            # pc = (int_immediate_adjusted & 0x8000) - (int_immediate_adjusted & 0x7fff)
-            # self.int_program_counter += int_immediate_adjusted
-
-            # self.int_program_counter += int_immediate_adjusted
-            
-            # setting in the register of rd the next instruction to come back when finished there 
-            # int_reg_number_pointed_by_rd = Util.binary_in_string_to_int(instruction.j_type_bin_rd)
-            # self.registers[int_reg_number_pointed_by_rd] = instruction.int_address + 4
-
 
             # preparing log line of the instruction 
             # jal rd,offset
