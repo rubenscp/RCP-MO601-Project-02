@@ -11,100 +11,74 @@ O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{
     % defining key words to use in the text
     \SetKwInput{KwEntrada}{Entrada}
     \SetKwInOut{KwSaida}{Saída}
-    \SetKwFunction{KwSimularExecucaoPrograma}{SimularExecucaoPrograma}
+    \SetKwFunction{KwExecutarPrograma}{ExecutarPrograma}
 
     \SetAlgoLined
     
     \BlankLine
 
-    \KwEntrada {\textit{programa compilado/linked}}
+    \KwEntrada {\textit{programa em formato assembler (linked - exemplo: 000.main.dump)}}
 
     \BlankLine
 
-    \KwSaida {\textit{arquivo de log de saída programa compilado exemplo: 000.main.log}}
+    \KwSaida {\textit{arquivo de log de saída do programa simulado (exemplo: 000.main.log)}}
 
     \BlankLine
 
-    \KwSimularExecucaoPrograma{programa compilado}    
+    \KwExecutarPrograma{programa}    
     \Begin{
-
-        inicializar circuito atribuindo valor 0 a todas as variáveis
-
-        inicializar indicador de tempo da simulação
-
-        % \CommentSty{O circuito estabilizará quando duas saídas consecutivas forem iguais.}
         
-        \While{circuito não estabilizar}
+        \While{não alcançar a instrução \textit{ebreak}}
         {
             \BlankLine
 
-            \ForEach{estimulo}
-            {
-                \BlankLine
-
-                \eIf{variavel}
-                {
-                    atribuir valor lido à respectiva variável
-
-                    retornar para ler novo estímulo
-                }
-                {
-                    \CommentSty{Processar conforme a quantidade de indicador de tempo}
-
-                    \While{circuito não estabilizar}
-                    {
-                        calcular portas lógicas do circuito conforme o atraso 
-                        (\textit{quando atraso 0, utilizar os valores do tempo atual nas entradas das portas lógicas e 
-                            quando atraso 1, utilizar os valores do tempo de simulação anterior nas entradas
-                            das portas lógicas}).
-                    }     
-                    
-                    gerar saída utilizando o tempo atual da simulação e os valores de todas as variáveis do circuito
-                }
-
-                \BlankLine
-
-                incrementar indicador de tempo da simulação
-
-                \BlankLine
-
-            }
+            ler instrução indicada pelo PC
 
             \BlankLine
 
-            \CommentSty{/* Executa novamente o circuito lógico visando sua estabilização devido ao término 
-            dos estímulos de entrada. */}
+            decodificar instrução conforme o tipo específico (R/I/S/B/U/J)
 
-            \If{circuito não estabilizar}
-            {
-                calcular portas lógicas do circuito conforme o atraso 
+            \BlankLine
 
-                incrementar indicador de tempo da simulação
-            }
+            executar a instrução de acordo com sua implementação 
 
-        }
-        
+            \BlankLine
+
+            gerar linha de log de saída da instrução executada
+        }        
     }
             
     \BlankLine
 
     \BlankLine
 
-    \CommentSty{/* Programa principal que gerencia a simulação de programas no processador RISC-V RV32IM*/}
+    \CommentSty{/* Programa principal que gerencia a simulação do processador RISC-V RV32IM na execução de programas. */}
 
     \BlankLine
 
-    \ForEach{programa compilado}
+    \ForEach{programa}
     {    
-        ler programa compilado
+        inicializar processador RISC-V criando memória RAM, registradores e PC
+
+        \BlankLine
+
+        ler programa
+
+        \BlankLine
+
+        armazenar programa na memória RAM
+
+        \BlankLine
+
+        inicializar contador do programa (PC) com o endereço de memória da primeira instrução do programa que será executada
 
         \BlankLine
         
-        \KwSimularExecucaoPrograma{programa compilado}    
+        \KwExecutarPrograma{programa}
 
         \BlankLine
 
-        gerar arquivo de log de saída do programa compilado 
+        gravar arquivo com o log das instruções executadas
 
     } 
 

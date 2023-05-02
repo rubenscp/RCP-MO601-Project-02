@@ -1403,9 +1403,9 @@ INPUT Tarefas\ambiente_desenvolvimentoral.tex
 INPUT .\Tarefas\ambiente_desenvolvimentoral.tex
 INPUT .\Tarefas\ambiente_desenvolvimentoral.tex
 INPUT Tarefas\ambiente_desenvolvimentoral.tex
+INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1200.tfm
 INPUT C:\Program Files\MiKTeX\fonts\vf\adobe\times\ptmri7t.vf
 INPUT C:\Program Files\MiKTeX\fonts\tfm\adobe\times\ptmri8r.tfm
-INPUT C:\Program Files\MiKTeX\fonts\tfm\jknappen\ec\tcrm1200.tfm
 INPUT C:\Program Files\MiKTeX\fonts\tfm\public\cm\cmbx12.tfm
 INPUT .\Tarefas\algoritmo_simulacao.tex
 INPUT .\Tarefas\algoritmo_simulacao.tex

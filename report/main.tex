@@ -35,6 +35,11 @@
 % \usepackage[portuguese, ruled, linesnumbered]{algorithm2e}
 \usepackage[ruled, vlined, linesnumbered]{algorithm2e}
 
+% incluido por Rubens em 01/05/2023
+%\usepackage{cite}
+%\usepackage{biblatex}
+%\addbibresource{Tarefas/reference.bib} 
+
 \makenomenclature               %nomenclatura
 % \setlength{\parindent}{1cm}     %indentação do parágrafo em 1
 \setlength{\parindent}{0.5cm}     %indentação do parágrafo em 1
@@ -75,8 +80,7 @@
 	
 	\renewcommand{\nomname}{Nomenclatura} %renomeio da nomenclatura
 	\printnomenclature                  \newpage
-	\subfile{Tarefas/nomenclatura}
-	
+	\subfile{Tarefas/nomenclatura}	
 
 	\subfile{Tarefas/introducao.tex}
 	\subfile{Tarefas/descricao_geral}
@@ -88,5 +92,10 @@
 	% \let\Section\section\def\section*#1{\Section{#1}}
 	% \renewcommand{\refname}{Referências Bibliográficas}
 	% \bibliography{Tarefas/reference.bib}
+
+	\begin{thebibliography}{99}
+		\bibitem{riscv_isa} Andrew Waterman1, and Krste Asanovi, The RISC-V Instruction Set Manual, Volume I: User-Level ISA, Document Version 2.2, 2017. https://riscv.org/wp-content/uploads/2017/05/riscv-spec-v2.2.pdf.
+		\bibitem{riscv_iss} Msyksphinz. RISC-V Instruction Set Specifications, 2019. https://msyksphinz-self.github.io/riscv-isadoc/html/rvi.html.
+	\end{thebibliography}
 
 \end{document}

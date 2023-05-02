@@ -17,16 +17,9 @@ Some acronyms used in this project:
 # ###########################################
 # Importing Libraries
 # ###########################################
-# import string
-# import ast
-# import subprocess
-# import requests
-
 import os
-import shutil
 
 from RiscVProcessor import RiscVProcessor
-
 
 # ###########################################
 # Defining variables, constants and objects
@@ -96,7 +89,7 @@ def simulate_execution_program(riscv_processor, program_name, test_path, test_pa
 #                   '201.atomic.dump'
 #                   ]
 
-do_not_process = ['133.call.dump', '134.call.dump', \
+do_not_process = ['131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
                   '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
                   '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
                   ]
@@ -154,7 +147,7 @@ if __name__ == '__main__':
         # if program_name.find('.shift.') > 0: continue
         # if program_name.find('.if.') > 0: continue
         # # if program_name.find('.loop.') > 0: continue
-        if program_name.find('.call.') > 0: continue
+        # if program_name.find('.call.') > 0: continue
         # if program_name.find('.array.') > 0: continue
 
         # if program_name.find('.loop.') > 0: x = 0

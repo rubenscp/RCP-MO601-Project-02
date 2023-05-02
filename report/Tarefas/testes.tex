@@ -1,17 +1,123 @@
 
 \section{Testes}
 
-Os testes do projeto foram organizados em pastas de testes específicos localizados em \textit{/test} 
-no projeto \textit{RCP-MO601-Project-01}. Cada pasta de teste contém a especificação do circuito 
-lógico desejado (\textit{circuito.hdl}), os estímulos (\textit{estimulos.txt}) a serem processados ao 
-longo do tempo (valores de variáveis e/ou indicadores de tempo), 
-os arquivos com as saídas esperadas (\textit{esperado0.csv e esperado1.csv}) e os arquivos resultantes da simulação 
-(\textit{saida0.csv e saida1.csv}).
+Os testes do simulador foram organizados na pasta de testes específicos localizado em \textit{test} 
+no projeto \textit{RCP-MO601-Project-02}. Esta pasta contém todos programas fonte em C (extensão ".c"), os programas compilados fornecidos pelo professor (extensão ".riscv") e os programas em formato assembler resultado da geração do \textit{dump} por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe} com extensão ".dump".
 
-Novos testes podem ser adicionados à pasta principal de testes (\textit{/test}), contudo o simulador exige a
-existência dos arquivos \textit{circuito.hdl} e \textit{estimulos.txt}. Além disso, não existe limite para a quantidade 
-de testes incluídos, sendo que o simulador processará todos aqueles que existirem na pasta principal de testes.
+Uma nova pasta denominada \textit{log} foi criada dentro da pasta \textit{test} a fim de acomodar os arquivos de saída do simulador (log). A listagem de programas abaixo representa os programas que foram processados com sucesso, os quais possuem o respecivo arquivo de log gerado:
 
-Durante a simulação dos testes, conforme pode-se observar no \textit{algorithm \ref{alg:simulacao}}, 
-todas as pastas de testes específicos são consideradas, seus arquivos de entrada são 
-processados e os resultados (saídas) são armazenados nas mesmas.
+\begin{multicols}{4}
+    \begin{enumerate}
+        \item 000.main.c
+        \item 011.const.c
+        \item 012.const.c
+        \item 013.const.c
+        \item 014.const.c
+        \item 015.const.c
+        \item 016.const.c
+        \item 017.const.c
+        \item 018.const.c
+        \item 021.cast.c
+        \item 022.cast.c
+        \item 023.cast.c
+        \item 024.cast.c
+        \item 025.cast.c
+        \item 026.cast.c
+        \item 027.cast.c
+        \item 031.add.c
+        \item 032.add.c
+        \item 033.add.c
+        \item 034.add.c
+        \item 041.sub.c
+        \item 042.sub.c
+        \item 043.sub.c
+        \item 044.sub.c
+        \item 051.mul.c
+        \item 052.mul.c
+        \item 053.mul.c
+        \item 054.mul.c
+        \item 055.mul.c
+        \item 056.mul.c
+        \item 057.mul.c
+        \item 058.mul.c
+        \item 061.div.c
+        \item 062.div.c
+        \item 063.div.c
+        \item 064.div.c
+        \item 065.div.c
+        \item 066.div.c
+        \item 071.bool.c
+        \item 072.bool.c
+        \item 073.bool.c
+        \item 074.bool.c
+        \item 075.bool.c
+        \item 076.bool.c
+        \item 077.bool.c
+        \item 078.bool.c
+        \item 081.shift.c
+        \item 082.shift.c
+        \item 083.shift.c
+        \item 084.shift.c
+        \item 085.shift.c
+        \item 086.shift.c
+        \item 111.if.c
+        \item 112.if.c
+        \item 113.if.c
+        \item 114.if.c
+        \item 115.if.c
+        \item 116.if.c
+        \item 117.if.c
+        \item 118.if.c
+        \item 119.if.c
+    \end{enumerate}
+    % \columnbreak
+    % \begin{enumerate}  \setcounter{enumi}{5}
+    %     \item bbbbbbbbbbbbb
+    %     \item bbbbbbbbbbbbb
+    %     \item bbbbbbbbbbbbb
+    %     \item bbbbbbbbbbbbb
+    %     \item bbbbbbbbbbbbb
+    % \end{enumerate}
+    % \columnbreak
+    % \begin{enumerate}  \setcounter{enumi}{5}
+    %     \item ccccccccccccccc
+    %     \item ccccccccccccccc
+    %     \item ccccccccccccccc
+    %     \item ccccccccccccccc
+    %     \item ccccccccccccccc
+    % \end{enumerate}
+\end{multicols} 
+
+
+Os programas relacionados a seguir tiveram problemas durante a simulação e, portanto, não foi possível gerar os arquivos de saída (log): 
+
+\begin{multicols}{4}
+    \begin{enumerate}
+        \item 121.loop.c
+        \item 122.loop.c
+        \item 123.loop.c
+        \item 124.loop.c
+        \item 125.loop.c
+        \item 126.loop.c
+        \item 131.call.c
+        \item 132.call.c
+        \item 133.call.c
+        \item 134.call.c
+        \item 141.array.c
+        \item 142.array.c
+        \item 143.array.c
+        \item 144.array.c
+        \item 145.array.c
+        \item 146.array.c
+    \end{enumerate}
+    % \columnbreak
+    % \begin{itemize}  
+    %     \item 141.array.c
+    %     \item 142.array.c
+    %     \item 143.array.c
+    %     \item 144.array.c
+    %     \item 145.array.c
+    %     \item 146.array.c
+    % \end{itemize}
+    % \columnbreak
+\end{multicols}
