@@ -39,11 +39,14 @@ Executar o arquivo de lote "dump_programas_compilados.bat"
 ### 4. Abrir uma IDE para executar os programas/classes da aplicação Python
 	
 ```
-abrir o programa principal Python "main.py".
+Abrir o programa principal Python "main.py".
 ```
 ```
-executar o programa "main.py" por intermédio da IDE.
+Executar o programa "main.py" por intermédio da IDE
 ```
+```
+Executar o programa simulador por meio de linha de comando: python source\main.py```
+
 
 ### 5. Visualização dos resultados da simulação
 
