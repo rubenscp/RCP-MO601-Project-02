@@ -33,16 +33,16 @@ cd RCP-MO601-Project-02
 ### 3. Gerar programas em formato assembler _dump_ por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe}
 
 ```
-Executar o arquivo de lote _{dump_programas_compilados.bat}_
+Executar o arquivo de lote "dump_programas_compilados.bat"
 ```
 
 ### 4. Abrir uma IDE para executar os programas/classes da aplicação Python
 	
 ```
-abrir o programa principal Python _main.py_.
+abrir o programa principal Python "main.py".
 ```
 ```
-executar o programa _main.py_
+executar o programa "main.py" por intermédio da IDE.
 ```
 
 ### 5. Visualização dos resultados da simulação
