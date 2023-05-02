@@ -1,4 +1,4 @@
-# Projeto 2 - Um simulador Um simulador simples do processador RISC-V
+# Projeto 2 - Um simulador simples do processador RISC-V
 
 ### Universidade Estadual de Campinas
 
@@ -12,61 +12,43 @@
 
 ___
 
-Este repositório contém todos os artefatos do Projeto 1 que implementa um simulador super básico de circuitos lógicos.
+Este repositório contém todos os artefatos do Projeto 2 que implementa um simulador simples do processador RISC-V.
 
-O **relatório compacto** do projeto pode ser acessado [aqui](https://github.com/rubenscp/RCP-MO601-Project-01/blob/main/relatorio.pdf).
+O **relatório compacto** do projeto pode ser acessado [aqui](https://github.com/rubenscp/RCP-MO601-Project-02/blob/main/relatorio.pdf).
 
 Siga as instruções abaixo para a execução completa dessa aplicação:
 
 ### 1. Clonar repositório do projeto
 
 ```
-git clone https://github.com/rubenscp/RCP-MO601-Project-01.git
+git clone https://github.com/rubenscp/RCP-MO601-Project-02.git
 ```
 	
 ### 2. Acessar a pasta do projeto Python
 	
 ```
-cd RCP-MO601-Project-01
+cd RCP-MO601-Project-02
 ```
 	
-### 3. Adicionar novos testes ao simulador
+### 3. Gerar programas em formato assembler _dump_ por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe}
 
 ```
-Copiar os novos testes de simulação dentro da pasta "test".
+Executar o arquivo de lote _{dump_programas_compilados.bat}_
 ```
 
-### 4. Criar imagem docker da aplicação Python
+### 4. Abrir uma IDE para executar os programas/classes da aplicação Python
 	
 ```
-reposicionar novamente na pasta raiz do projeto *RCP-MO601-Project-01*
+abrir o programa principal Python _main.py_.
 ```
 ```
-docker build -t projeto-01:1.0 .
-```
-
-### 5. Criar volume docker para o mapeamento da pasta do projeto no seu computador
-
-```
-docker volume create projeto-01-volume
+executar o programa _main.py_
 ```
 
-### 6. Executar o container docker
-
-```
-docker run --name projeto-01 -v projeto-01-volume:/app/test projeto-01:1.0
-```
-	
-### 7. Copiar os arquivos dos resultados para a pasta local
-
-```
-docker cp projeto-01:/app/test/. test/.
-```
-    
-### 8. Visualização dos resultados da simulação
+### 5. Visualização dos resultados da simulação
 
 
-Todos os resultados das simulações (*saida0.csv* e *saida1.csv*) estarão posicionados nas pastas específicas dos testes.
+Todos os resultados dasdo processamento dos programas estarão na pasta _log_ dentro da pasta _test_.
 
 ___
 
