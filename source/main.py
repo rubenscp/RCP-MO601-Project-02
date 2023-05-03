@@ -69,6 +69,41 @@ def simulate_execution_program(riscv_processor, program_name, test_path, test_pa
     # executing program from meory 
     riscv_processor.execute_program_from_memory(program_name, test_path_log, show_print)
 
+
+def create_statistic_file(program_name, test_path):
+
+    # setting the output filename in csv format 
+    statistic_filename = test_path + program_name
+
+    # removing file to save if exists 
+    if os.path.exists(statistic_filename):
+        os.remove(statistic_filename)     
+
+    # creating text file
+    file = open(statistic_filename, 'w')
+
+    # returning file reference 
+    return file
+
+def write_statistic_line(file, program_name, number_of_instructions, execution_cycles):
+    # adjusting program name 
+    program_name_adjusted = program_name + ' '*10
+    program_name_adjusted = program_name_adjusted[:15]
+
+    # setting line 
+    line = ''
+    line += f'Program: {program_name_adjusted}   ' 
+    line += f'Number of instructions: {number_of_instructions:04d}   ' 
+    line += f'Execution cycles: {execution_cycles:04d} ' 
+    line += '\n'
+
+    # writing log line 
+    file.write(line)
+    # print(instruction.get_log_line())
+
+def close_statistic_file(file):
+    file.close()
+
 do_not_process = ['131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
@@ -85,6 +120,9 @@ if __name__ == '__main__':
 
     # remove all old log files
     remove_log_files(test_path_log)
+
+    # creating statistic file 
+    statistic_file = create_statistic_file('_riscv_simulator_statistic.txt', test_path_log)
           
     # setting parameters of RISCV processor 
     number_of_registers = 32
@@ -121,11 +159,22 @@ if __name__ == '__main__':
         # selecting assembler program to simulate
         if program_name.find('.asm') > 0: 
             # processing test 
-            print(f'Simulating program execution: {program_name} - starting')
+            print(f'Simulating program execution: {program_name}')
 
             # simulating the execution of program 
             simulate_execution_program(riscv_processor, program_name, test_path, test_path_log, show_print)
+
+            # write statistic of simulation 
+            write_statistic_line(statistic_file, \
+                                 program_name, \
+                                 riscv_processor.number_of_instructions, \
+                                 riscv_processor.execution_cycles\
+                                )
+         
             
+    # closing statistic file  
+    close_statistic_file(statistic_file)
+    
     print()
     print(f'End of Simulation')
     print()

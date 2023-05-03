@@ -17,6 +17,7 @@ class RiscVProcessor:
         self.memory = []
         self.log = Log()
         self.instruction_map = InstructionMap()
+        self.number_of_instructions = 0
         self.execution_cycles = 0 
 
         # register map for assembler mnemonics.
@@ -71,6 +72,9 @@ class RiscVProcessor:
         self.memory[int_memory_address] = instruction  
 
     def load_program_assembler_into_memory(self, c_program_assembly, show_print):
+        # initializing instructions counter 
+        self.number_of_instructions = 0
+
         # reading program 
         for line in c_program_assembly:
 
@@ -103,6 +107,9 @@ class RiscVProcessor:
             # setting first instruction into PC
             if self.int_program_counter == 0:
                 self.int_program_counter = int_memory_address
+
+            # counting instructions counter 
+            self.number_of_instructions += 1
             
         # print(f'self.program_counter_register - endereço inicio: {self.int_program_counter}' + \
         #       f'  self.memory_max_address: {self.memory_max_address}'
@@ -175,7 +182,7 @@ class RiscVProcessor:
         self.log.close_log_file()
 
         # printing number of execution cycles 
-        print(f'Simulating program execution: {program_name} - execution cycles: {self.execution_cycles}')
+        # print(f'Simulating program execution: {program_name} - execution cycles: {self.execution_cycles}')
 
 
     # execute the instruction 
