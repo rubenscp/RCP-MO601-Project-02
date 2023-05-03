@@ -12,11 +12,17 @@
 
 ___
 
-Este repositório contém todos os artefatos do Projeto 2 que implementa um simulador simples do processador RISC-V.
+Este repositório contém todos os artefatos do Projeto 2 que implementa um simulador simples do processador RISC-V considerando o conjunto de instruções básicas de inteiros de 32 bits e, adicionalmente, as instruções de multiplicação e divisão inteiras de 32 bits. Os programas de testes foram disponibilizados no repositório ACStone (https://github.com/rjazevedo/ACStone) 
+
 
 O **relatório compacto** do projeto pode ser acessado [aqui](https://github.com/rubenscp/RCP-MO601-Project-02/blob/main/relatorio.pdf).
 
 Siga as instruções abaixo para a execução completa dessa aplicação:
+
+### 1. Pré-requisitos
+
+O desenvolvimento do simulador foi realizado em computador com o sistema operacional Windows 10, bem como utilizadno as ferrametas de compilação e montagem (liked) baseadas nesse ambiente. Assim, é ncessário realizar os testes do simulador em ambiente equivalente ao especificado.
+
 
 ### 1. Clonar repositório do projeto
 
