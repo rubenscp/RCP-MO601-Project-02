@@ -52,7 +52,7 @@ python source\main.py
 
 ### 5. Visualização dos resultados da simulação
 
-Todos os arquivos de log da simulações estarão na pasta _log_ dentro da pasta _test_.
+Todos os arquivos de log da simulações estão localizados na pasta _log_ dentro da pasta _test_.
 
 ```
 cd test\log
