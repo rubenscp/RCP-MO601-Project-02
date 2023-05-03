@@ -69,32 +69,10 @@ def simulate_execution_program(riscv_processor, program_name, test_path, test_pa
     # executing program from meory 
     riscv_processor.execute_program_from_memory(program_name, test_path_log, show_print)
 
-
-
-# do_not_process = ['061.div.asm', '062.div.asm', '063.div.asm', '064.div.asm', '065.div.asm', \
-#                   '066.div.asm', '067.div.asm', '068.div.asm', '069.div.asm', \
-#                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
-#                   '131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
-#                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
-#                   '081.shift.asm', '082.shift.asm', '083.shift.asm', '084.shift.asm', '085.shift.asm', '086.shift.asm', \
-#                   '201.atomic.asm', 
-#                  ]
-
-# do_not_process = ['061.div.asm', '062.div.asm', '063.div.asm', '064.div.asm', '065.div.asm', \
-#                   '066.div.asm', '067.div.asm', '068.div.asm', '069.div.asm', \
-#                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
-#                   '086.shift.asm', \
-#                   '131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
-#                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
-#                   '201.atomic.asm'
-#                   ]
-
 do_not_process = ['131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
                   ]
-
-# do_not_process = []
 
 # ###########################################
 # Main method
@@ -102,7 +80,6 @@ do_not_process = ['131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm'
 if __name__ == '__main__':
     # setting paths and file names
     root_path = os.getcwd().replace("\\", "/") + "/"
-    # test_path = root_path + 'test/riscv-bin/'
     test_path = root_path + 'test/'
     test_path_log = test_path + 'log/'
 
@@ -115,7 +92,9 @@ if __name__ == '__main__':
 
     # creating RISCV Processor instance
     riscv_processor = RiscVProcessor(number_of_registers, memory_size)
+    print()
     print(f'Size of RAM: {memory_size} bytes >> {memory_size / 1024 / 1024} MBytes' )
+    print()
 
     # processing each c program from ACStone in the folder tests 
     programs = [f for f in os.listdir(test_path)]
@@ -125,12 +104,6 @@ if __name__ == '__main__':
 
         # define printing of messages into the terminal 
         show_print = False
-        # program_name_debug = '000.main.asm'
-        # program_name_debug = '142.array.asm'
-        # program_name_debug = '121.loop.asm'
-        # program_name_debug = '133.call.asm'
-        # program_name_debug = '011.const.asm'
-        # program_name_debug = '061.div.asm'
         program_name_debug = ''
         if program_name_debug != '':
             do_not_process = []
@@ -141,20 +114,7 @@ if __name__ == '__main__':
 
         if program_name in do_not_process: continue
 
-        # Don't processing programs with the pattern at the filename
-        # if program_name.find('.div.') > 0: continue
-        # if program_name.find('.bool.') > 0: continue
-        # if program_name.find('.shift.') > 0: continue
-        # if program_name.find('.if.') > 0: continue
-        # # if program_name.find('.loop.') > 0: continue
-        # if program_name.find('.call.') > 0: continue
-        # if program_name.find('.array.') > 0: continue
-
-        # if program_name.find('.loop.') > 0: x = 0
-        # else: continue
-
-        # if program_name == " 086.shift.s": continue
-
+        # selecting assembler program to simulate
         if program_name.find('.asm') > 0: 
             # processing test 
             print(f'Simulating running of program {program_name}')
