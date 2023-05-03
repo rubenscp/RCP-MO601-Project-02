@@ -1197,7 +1197,7 @@ class RiscVProcessor:
         # executing instruction  
         # Implementation:	x[rd] = M[x[rs1] + sext(offset)][7:0]   
 
-        if self.registers[instruction.get_int_register_pointed_by_rd()] != 0:
+        if instruction.get_int_register_pointed_by_rd() != 0:
             int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
                                  instruction.i_type_int_offset_sexted
             int_memory_value_loaded = self.memory[int_address_memory]        
@@ -1220,7 +1220,7 @@ class RiscVProcessor:
 
         # executing instruction  
         # Implementation:	x[rd] = M[x[rs1] + sext(offset)][15:0] 
-        if self.registers[instruction.get_int_register_pointed_by_rd()] != 0:          
+        if instruction.get_int_register_pointed_by_rd() != 0:
             int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
                                 instruction.i_type_int_offset_sexted
             int_memory_value_loaded = self.memory[int_address_memory]

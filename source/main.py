@@ -127,11 +127,11 @@ if __name__ == '__main__':
         show_print = False
         # program_name_debug = '000.main.asm'
         # program_name_debug = '142.array.asm'
-        program_name_debug = '121.loop.asm'
+        # program_name_debug = '121.loop.asm'
         # program_name_debug = '133.call.asm'
         # program_name_debug = '011.const.asm'
         # program_name_debug = '061.div.asm'
-        # program_name_debug = ''
+        program_name_debug = ''
         if program_name_debug != '':
             do_not_process = []
             if program_name_debug == program_name:
