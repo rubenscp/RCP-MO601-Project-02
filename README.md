@@ -30,19 +30,19 @@ O desenvolvimento do simulador foi realizado em computador com o sistema operaci
 git clone https://github.com/rubenscp/RCP-MO601-Project-02.git
 ```
 	
-### 2. Acessar a pasta do projeto Python
+### 3. Acessar a pasta do projeto Python
 	
 ```
 cd RCP-MO601-Project-02
 ```
 	
-### 3. Gerar programas em formato assembler _dump_ por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe}
+### 4. Gerar programas em formato assembler _dump_ por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe}
 
 ```
 Executar o arquivo de lote "dump_programas_compilados.bat"
 ```
 
-### 4. Abrir uma IDE para executar os programas/classes da aplicação Python
+### 5. Abrir uma IDE para executar os programas/classes da aplicação Python
 	
 ```
 Abrir o programa principal Python "main.py".
