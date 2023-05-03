@@ -1,12 +1,17 @@
 
 \section{Testes}
 
-Os testes do simulador foram organizados na pasta de testes específicos localizado em \textit{test} 
-no projeto \textit{RCP-MO601-Project-02}. Esta pasta contém todos programas fonte em C (extensão ".c"), os programas compilados fornecidos pelo professor (extensão ".riscv") e os programas em formato assembler resultado da geração do \textit{dump} por intermédio do programa utilitário \textit{riscv32-unknown-elf-objdump.exe} com extensão ".dump".
+A execução dos testes compreende duas etapas: 1) geração dos programas em formato assembler (\textit{linked}); e 2) simulação da execução dos programas conforme o processador RISCV.
 
-Uma nova pasta denominada \textit{log} foi criada dentro da pasta \textit{test} a fim de acomodar os arquivos de saída do simulador (log). A listagem de programas abaixo representa os programas que foram processados com sucesso, os quais possuem o respecivo arquivo de log gerado:
+A etapa 1 é realizada com a execução do arquivo em lote \textit{dump-programas-compilados.bat} que utiliza o programa \textit{riscv32-unknown-elf-objdump.exe} para a criação dos programas em assembler (extensão "asm") a partir dos programas compilados (extensão "riscv").
 
-\begin{multicols}{4}
+A etapa 2 realiza a simulação do processador RISCV executando os programas em assembler e gerando como saída um arquivo com extensão "log" para cada programa simulado, evidenciando sua execução.
+
+Os arquivos foram organizados em uma pasta de testes específicos denominada \textit{test} e localizada dentro da pasta do projeto \textit{RCP-MO601-Project-02}. A pasta \textit{test} contém todos os programas fonte em C (extensão "c"), os programas compilados fornecidos pelo professor e os programas em assembler gerados na etapa1. Para facilitar a visualização do resultado do simulador, foi criada a pasta \textit{log} localizada dentro da pasta \textit{test} a fim de acomodar os arquivos de saída da simulação.
+
+A listagem abaixo apresenta os programas simulados com sucesso:
+
+\begin{multicols}{5}
     \begin{enumerate}
         \item 000.main.c
         \item 011.const.c
@@ -87,7 +92,6 @@ Uma nova pasta denominada \textit{log} foi criada dentro da pasta \textit{test} 
     %     \item ccccccccccccccc
     % \end{enumerate}
 \end{multicols} 
-
 
 Os programas relacionados a seguir tiveram problemas durante a simulação e, portanto, não foi possível gerar os arquivos de saída (log): 
 

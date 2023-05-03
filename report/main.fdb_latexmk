@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1682999878 "w:/My Drive/Doutorado IC-Unicamp/Classes/MO601 - CA2/04. Assignments/Projects/RCP-MO601-Project-02/report/main.tex" "main.pdf" "main" 1682999892 0
+["pdflatex"] 1683132347 "w:/My Drive/Doutorado IC-Unicamp/Classes/MO601 - CA2/04. Assignments/Projects/RCP-MO601-Project-02/report/main.tex" "main.pdf" "main" 1683132356 0
   "C:/Program Files/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/times/ptmb7t.tfm" 1136786654 2172 fd0c924230362ff848a33632ed45dc23 ""
   "C:/Program Files/MiKTeX/fonts/tfm/adobe/times/ptmb8r.tfm" 1136786654 4524 6bce29db5bc272ba5f332261583fee9c ""
@@ -209,19 +209,19 @@
   "C:/Users/Rubens/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1654733304 10237148 1b37edde3df83accca8f2f135b4ac449 ""
   "Imagens/LOGO-UNICAMP.png" 1679794094 35196 3783dd225ea7097921951508a884fe62 ""
   "Imagens/logo-ic-unicamp-slant-tint-beg-sky-ora-0120.png" 1661625395 45786 8068f93704709fc4b3f184efa01fbc72 ""
-  "Tarefas/algoritmo_simulacao.tex" 1682992791 1952 4198481684320fe2a27f505a2d0c4a90 ""
+  "Tarefas/algoritmo_simulacao.tex" 1683127235 1942 039ba2b3e2d6e0c0e0d49a8a05ec6882 ""
   "Tarefas/ambiente_desenvolvimentoral.tex" 1682996603 821 54863b8e9288be293a3c9a72f62ce674 ""
   "Tarefas/capa.tex" 1681303705 1351 36f9cf5f1ab9c851ce59957b0d4d53e2 ""
-  "Tarefas/consideracoes_aprendizado.tex" 1680107024 2018 005ea08314844a7ae4ab990adfd1cc60 ""
-  "Tarefas/descricao_geral.tex" 1682996531 1714 984b42d9ac3d09db8850a7a5747586e6 ""
+  "Tarefas/consideracoes_aprendizado.tex" 1683132346 3023 be43b0f30a48be40ba238399167ab161 ""
+  "Tarefas/descricao_geral.tex" 1683128478 1670 b3a9a05464714e5c3e946d6d501bc480 ""
   "Tarefas/introducao.tex" 1682994061 760 d2362c851f98f761416b4be367fcdee7 ""
   "Tarefas/nomenclatura.tex" 1679794094 359 40b24878b45af3f19e9211140b19221f ""
-  "Tarefas/testes.tex" 1682999877 3707 4878e8061e7bb73d1b69eedbe3bf154c ""
-  "main.aux" 1682999891 1947 4e9ae0300463fdbfcbeba6fb21a25931 "pdflatex"
+  "Tarefas/testes.tex" 1683132118 4226 a05b5f3f8786b9d374c9afa7c4b16ec4 ""
+  "main.aux" 1683132355 1947 8d8ebe5a953a1d281de2f71f817c1d54 "pdflatex"
   "main.nls" 0 -1 0 ""
-  "main.out" 1682999891 947 435772b58550bd059fe5a33b9c88d9a9 "pdflatex"
+  "main.out" 1683132355 947 435772b58550bd059fe5a33b9c88d9a9 "pdflatex"
   "main.tex" 1682998100 3464 b7466bdf59994af12e85f40e19debbcc ""
-  "main.toc" 1682999891 502 f6e2e5570bce54ab90a92c49afe1cd9e "pdflatex"
+  "main.toc" 1683132355 502 f6e2e5570bce54ab90a92c49afe1cd9e "pdflatex"
   "w:/My Drive/Doutorado IC-Unicamp/Classes/MO601 - CA2/04. Assignments/Projects/RCP-MO601-Project-02/report/main.tex" 1682998100 3464 b7466bdf59994af12e85f40e19debbcc ""
   (generated)
   "main.aux"
