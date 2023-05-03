@@ -132,9 +132,11 @@ class Util:
           result = []
           if number_of_bits == 8:
                result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
+
           elif number_of_bits == 16:
                result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
                result.append(Util.convert_bin_str_to_int(bin_value_str[8:16]))
+
           elif number_of_bits == 32:
                result.append(Util.convert_bin_str_to_int(bin_value_str[0:8]))
                result.append(Util.convert_bin_str_to_int(bin_value_str[8:16]))

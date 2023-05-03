@@ -50,45 +50,4 @@ Executar o programa simulador por meio de linha de comando: python source\main.p
 
 ### 5. Visualização dos resultados da simulação
 
-
 Todos os resultados dasdo processamento dos programas estarão na pasta _log_ dentro da pasta _test_.
-
-___
-
-### Comandos Docker auxiliares para o projeto
-
-#### Remover o container "projeto-01"
-
-```
-docker rm projeto-01
-```
-
-#### Remover a imagem "projeto-01:1.0"
-
-```
-docker rmi projeto-01:1.0
-```
-
-#### Remover o volume "projeto-01:volume"
-
-```
-docker volume rm projeto-01-volume
-```
-
-#### Listar todos os containeres
-
-```
-docker container ls -a
-```
-
-#### Listar todas as imagens
-
-```
-docker images 
-```
-
-#### Listar todos os volumes
-
-```
-docker volume ls
-```

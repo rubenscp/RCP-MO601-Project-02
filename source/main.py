@@ -71,27 +71,27 @@ def simulate_execution_program(riscv_processor, program_name, test_path, test_pa
 
 
 
-# do_not_process = ['061.div.dump', '062.div.dump', '063.div.dump', '064.div.dump', '065.div.dump', \
-#                   '066.div.dump', '067.div.dump', '068.div.dump', '069.div.dump', \
-#                   '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
-#                   '131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
-#                   '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
-#                   '081.shift.dump', '082.shift.dump', '083.shift.dump', '084.shift.dump', '085.shift.dump', '086.shift.dump', \
-#                   '201.atomic.dump', 
+# do_not_process = ['061.div.asm', '062.div.asm', '063.div.asm', '064.div.asm', '065.div.asm', \
+#                   '066.div.asm', '067.div.asm', '068.div.asm', '069.div.asm', \
+#                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
+#                   '131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
+#                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
+#                   '081.shift.asm', '082.shift.asm', '083.shift.asm', '084.shift.asm', '085.shift.asm', '086.shift.asm', \
+#                   '201.atomic.asm', 
 #                  ]
 
-# do_not_process = ['061.div.dump', '062.div.dump', '063.div.dump', '064.div.dump', '065.div.dump', \
-#                   '066.div.dump', '067.div.dump', '068.div.dump', '069.div.dump', \
-#                   '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
-#                   '086.shift.dump', \
-#                   '131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
-#                   '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
-#                   '201.atomic.dump'
+# do_not_process = ['061.div.asm', '062.div.asm', '063.div.asm', '064.div.asm', '065.div.asm', \
+#                   '066.div.asm', '067.div.asm', '068.div.asm', '069.div.asm', \
+#                   '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
+#                   '086.shift.asm', \
+#                   '131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
+#                   '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
+#                   '201.atomic.asm'
 #                   ]
 
-do_not_process = ['131.call.dump', '132.call.dump', '133.call.dump', '134.call.dump', \
-                  '121.loop.dump', '122.loop.dump', '123.loop.dump', '124.loop.dump', '125.loop.dump', '126.loop.dump', \
-                  '141.array.dump', '142.array.dump', '143.array.dump', '144.array.dump', '145.array.dump', '146.array.dump', \
+do_not_process = ['131.call.asm', '132.call.asm', '133.call.asm', '134.call.asm', \
+                  '121.loop.asm', '122.loop.asm', '123.loop.asm', '124.loop.asm', '125.loop.asm', '126.loop.asm', \
+                  '141.array.asm', '142.array.asm', '143.array.asm', '144.array.asm', '145.array.asm', '146.array.asm', \
                   ]
 
 # do_not_process = []
@@ -125,13 +125,13 @@ if __name__ == '__main__':
 
         # define printing of messages into the terminal 
         show_print = False
-        # program_name_debug = '000.main.dump'
-        # program_name_debug = '142.array.dump'
-        # program_name_debug = '121.loop.dump'
-        # program_name_debug = '133.call.dump'
-        # program_name_debug = '011.const.dump'
-        # program_name_debug = '061.div.dump'
-        program_name_debug = ''
+        # program_name_debug = '000.main.asm'
+        # program_name_debug = '142.array.asm'
+        program_name_debug = '121.loop.asm'
+        # program_name_debug = '133.call.asm'
+        # program_name_debug = '011.const.asm'
+        # program_name_debug = '061.div.asm'
+        # program_name_debug = ''
         if program_name_debug != '':
             do_not_process = []
             if program_name_debug == program_name:
@@ -153,9 +153,9 @@ if __name__ == '__main__':
         # if program_name.find('.loop.') > 0: x = 0
         # else: continue
 
-        # if program_name == " 086.shift.dump": continue
+        # if program_name == " 086.shift.s": continue
 
-        if program_name.find('.dump') > 0: 
+        if program_name.find('.asm') > 0: 
             # processing test 
             print(f'Simulating running of program {program_name}')
 

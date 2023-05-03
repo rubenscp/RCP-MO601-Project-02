@@ -60,6 +60,7 @@ class Log:
      def write_instruction_log_line(self, instruction):
           # writing log line 
           self.file.write(instruction.get_log_line())
+          # print(instruction.get_log_line())
 
      def close_log_file(self):
           self.file.close()

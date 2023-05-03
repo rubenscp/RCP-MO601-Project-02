@@ -110,7 +110,7 @@ class RiscVProcessor:
     # execute program from memory 
     def execute_program_from_memory(self, program_name, test_path_log, show_print):
         # getting just the program name without extensions
-        log_filename = program_name[:len(program_name)-5]
+        log_filename = program_name[:len(program_name)-4]
 
         # creating log file 
         self.log.create_log_file(log_filename, test_path_log)
@@ -158,6 +158,11 @@ class RiscVProcessor:
             # evaluating end of programa execution 
             if current_instruction.mnemonic == 'ebreak': 
                 end_execution = True
+
+            ni += 1
+            if ni>2000:
+                end_execution = True
+
 
         # closing log file
         self.log.close_log_file()
@@ -383,37 +388,16 @@ class RiscVProcessor:
     def executeBaseInstruction_R_type_sltu(self, instruction):
 
         # executing instruction
-        # Implementation:	x[rd] = x[rs1] <u x[rs2] 
+        # Implementation:	x[rd] = x[rs1] <u x[rs2]       
 
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' ANTES DO TESTES      rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rs1()]}' \
-        #     + f' rs2_number: {instruction.get_int_register_pointed_by_rs2()}' \
-        #     + f' rs2_value: {self.registers[instruction.get_int_register_pointed_by_rs2()]}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
-
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] < \
-           self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        rs1_value = self.registers[instruction.get_int_register_pointed_by_rs1()]
+        if rs1_value < 0: rs1_value += (1<<32)
+        rs2_value = self.registers[instruction.get_int_register_pointed_by_rs2()]
+        if rs2_value < 0: rs2_value += (1<<32)
+        if rs1_value < rs2_value:
             self.registers[instruction.get_int_register_pointed_by_rd()] = 1
         else: 
-            self.registers[instruction.get_int_register_pointed_by_rd()] = 0
-
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' DEPIS DO TESTES     rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rs1()]}' \
-        #     + f' rs2_number: {instruction.get_int_register_pointed_by_rs2()}' \
-        #     + f' rs2_value: {self.registers[instruction.get_int_register_pointed_by_rs2()]}' \
-        #     + f' rd_number: {instruction.get_int_register_pointed_by_rd()}' \
-        #     + f' rd_value: {self.registers[instruction.get_int_register_pointed_by_rd()]}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
+            self.registers[instruction.get_int_register_pointed_by_rd()] = 0     
 
         # preparing log line of the instruction 
         # Format: sltu rd,rs1,rs2
@@ -1156,6 +1140,7 @@ class RiscVProcessor:
         int_values.append(self.memory[int_address_memory+1])
         # getting the real value from slices
         int_memory_value_loaded = Util.merge_slices_8_bits_into_one_value(int_values)
+        if int_memory_value_loaded < 0: int_memory_value_loaded -= (1<<32)
         # setting value into register rd
         self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
         
@@ -1189,6 +1174,7 @@ class RiscVProcessor:
         int_values.append(self.memory[int_address_memory+3])
         # getting the real value from slices
         int_memory_value_loaded = Util.merge_slices_8_bits_into_one_value(int_values)
+        if int_memory_value_loaded < 0: int_memory_value_loaded -= (1<<32)
         # setting value into register rd
         self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
 
@@ -1211,28 +1197,11 @@ class RiscVProcessor:
         # executing instruction  
         # Implementation:	x[rd] = M[x[rs1] + sext(offset)][7:0]   
 
-        int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-                             instruction.i_type_int_offset_sexted
-        int_memory_value_loaded = self.memory[int_address_memory]
-
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' ANTES atribuir RD   rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rs1()]}' \
-        #     + f' offset: {instruction.i_type_int_offset_sexted}' \
-        #     + f' int_memory_value_loaded: {int_memory_value_loaded}' \
-        #     + f' rd_number: {instruction.get_int_register_pointed_by_rd()}' \
-        #     + f' rd_value: {self.registers[instruction.get_int_register_pointed_by_rd()]}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
- 
-        # int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-        #     Util.binary_in_string_to_int(instruction.i_type_bin_immediate_11_0)
-        # int_memory_value = self.memory[int_address_memory]
-        # self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value 
+        if self.registers[instruction.get_int_register_pointed_by_rd()] != 0:
+            int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
+                                 instruction.i_type_int_offset_sexted
+            int_memory_value_loaded = self.memory[int_address_memory]        
+            self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
 
         # preparing log line of the instruction 
         # Format:	lbu rd,offset(rs1)
@@ -1250,11 +1219,12 @@ class RiscVProcessor:
     def executeBaseInstruction_I_type_lhu(self, instruction):
 
         # executing instruction  
-        # Implementation:	x[rd] = M[x[rs1] + sext(offset)][15:0]     
-        int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
-                             instruction.i_type_int_offset_sexted
-        int_memory_value_loaded = self.memory[int_address_memory]
-        self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
+        # Implementation:	x[rd] = M[x[rs1] + sext(offset)][15:0] 
+        if self.registers[instruction.get_int_register_pointed_by_rd()] != 0:          
+            int_address_memory = self.registers[instruction.get_int_register_pointed_by_rs1()] + \
+                                instruction.i_type_int_offset_sexted
+            int_memory_value_loaded = self.memory[int_address_memory]
+            self.registers[instruction.get_int_register_pointed_by_rd()] = int_memory_value_loaded
 
         # preparing log line of the instruction 
         # Format:	lhu rd,offset(rs1)
@@ -1631,7 +1601,6 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	if (x[rs1] == x[rs2]) pc += sext(offset)
-        # calculating the new address to branch which offset is multiple of two address of 4 bytes 
         if self.registers[instruction.get_int_register_pointed_by_rs1()] == \
             self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
@@ -1655,19 +1624,14 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	if (x[rs1] != x[rs2]) pc += sext(offset)
-        # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' ANTES DO TESTES      rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rs1()]}' \
-        #     + f' rs2_number: {instruction.get_int_register_pointed_by_rs2()}' \
-        #     + f' rs2_value: {self.registers[instruction.get_int_register_pointed_by_rs2()]}' \
-        #     + f' offset: {instruction.b_type_int_offset_sexted}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
+        if instruction.int_address == 222:
+            x = 0
+        print(f' endereço: {instruction.int_address}  '  + \
+              f' rs1: {instruction.get_int_register_pointed_by_rs1()} >> {self.registers[instruction.get_int_register_pointed_by_rs1()]}  '  + \
+              f' rs2: {instruction.get_int_register_pointed_by_rs2()} >> {self.registers[instruction.get_int_register_pointed_by_rs2()]}  '  + \
+              f' PC: {self.int_program_counter}  '  + \
+              f' offset_sexted: {instruction.b_type_int_offset_sexted}  '
+              )            
 
         if self.registers[instruction.get_int_register_pointed_by_rs1()] != \
             self.registers[instruction.get_int_register_pointed_by_rs2()]:
@@ -1677,18 +1641,6 @@ class RiscVProcessor:
             # increment address at PC (+4 bytes)
             self.int_program_counter += 4
         
-        # print(f'Instruction at memory[{instruction.int_address}, {instruction.hex_address}]' \
-        #     + f' type: {instruction.type}' \
-        #     + f' mnemonic: {instruction.mnemonic}' \
-        #     + f' opcode: {instruction.opcode}' \
-        #     + f' DEPOIS DO TESTES     rs1_number: {instruction.get_int_register_pointed_by_rs1()}' \
-        #     + f' rs1_value: {self.registers[instruction.get_int_register_pointed_by_rs1()]}' \
-        #     + f' rs2_number: {instruction.get_int_register_pointed_by_rs2()}' \
-        #     + f' rs2_value: {self.registers[instruction.get_int_register_pointed_by_rs2()]}' \
-        #     + f' offset: {instruction.b_type_int_offset_sexted}' \
-        #     + f' pc: {self.int_program_counter}' \
-        #     )
-
         # preparing log line of the instruction 
         # Format:	bne rs1,rs2,offset
         instruction.log_hex_rd = 'x' + f'{instruction.get_int_register_pointed_by_rd():02d}' + \
@@ -1729,7 +1681,8 @@ class RiscVProcessor:
         # executing instruction
         # Implementation:	if (x[rs1] >=s x[rs2]) pc += sext(offset) 
         # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] >= self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        if self.registers[instruction.get_int_register_pointed_by_rs1()] >= \
+            self.registers[instruction.get_int_register_pointed_by_rs2()]:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1751,11 +1704,12 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	if (x[rs1] <u x[rs2]) pc += sext(offset)
-        # calculating the new address to branch which offset is multiple of two address of 4 bytes 
 
-
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] < \
-            self.registers[instruction.get_int_register_pointed_by_rs2()]:
+        rs1_value = self.registers[instruction.get_int_register_pointed_by_rs1()]
+        if rs1_value < 0: rs1_value += (1<<32)
+        rs2_value = self.registers[instruction.get_int_register_pointed_by_rs2()]
+        if rs2_value < 0: rs2_value += (1<<32)
+        if rs1_value < rs2_value:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1777,9 +1731,12 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	if (x[rs1] >=u x[rs2]) pc += sext(offset)
-        # calculating the new address to branch which offset is multiple of two address of 4 bytes 
-        if self.registers[instruction.get_int_register_pointed_by_rs1()] >= \
-            self.registers[instruction.get_int_register_pointed_by_rs2()]:
+
+        rs1_value = self.registers[instruction.get_int_register_pointed_by_rs1()]
+        if rs1_value < 0: rs1_value += (1<<32)
+        rs2_value = self.registers[instruction.get_int_register_pointed_by_rs2()]
+        if rs2_value < 0: rs2_value += (1<<32)
+        if rs1_value >= rs2_value:
             # setting the new memory address to branch
             self.int_program_counter += instruction.b_type_int_offset_sexted
         else: 
@@ -1886,7 +1843,7 @@ class RiscVProcessor:
         if instruction.opcode == '1101111':
 
             # executing instruction 
-            # Implementation:	x[rd] = pc+4; pc += sext(offset)
+            # Implementation:   x[rd] = pc+4; pc += sext(offset)
 
             # x[rd] = pc+4;
             self.registers[instruction.get_int_register_pointed_by_rd()] = self.int_program_counter + 4
