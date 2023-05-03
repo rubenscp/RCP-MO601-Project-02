@@ -121,7 +121,7 @@ if __name__ == '__main__':
         # selecting assembler program to simulate
         if program_name.find('.asm') > 0: 
             # processing test 
-            print(f'Simulating program execution: {program_name}')
+            print(f'Simulating program execution: {program_name} - starting')
 
             # simulating the execution of program 
             simulate_execution_program(riscv_processor, program_name, test_path, test_path_log, show_print)
