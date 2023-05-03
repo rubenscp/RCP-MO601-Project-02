@@ -232,8 +232,6 @@ class Instruction:
         self.r_type_bin_rs2 = bin_instruction[7:12]
         self.r_type_bin_funct7 = bin_instruction[0:7]
 
-        # print(f'R: {self.r_type_bin_funct7} {self.r_type_bin_rs2} {self.r_type_bin_rs1} {self.r_type_bin_funct3} {self.r_type_bin_rd} {self.opcode} ')
-
 
     # decode base instruction of I type 
     def decodeBaseInstruction_I_type(self, bin_instruction):
@@ -265,8 +263,6 @@ class Instruction:
         # used to log 
         self.i_type_bin_rs2_log = bin_instruction[7:12]      
         
-        # print(f'I: {self.i_type_bin_immediate_11_0} {self.i_type_bin_rs1} {self.i_type_bin_funct3} {self.i_type_bin_rd} {self.opcode} ')
-
 
     # decode base instruction of S type 
     def decodeBaseInstruction_S_type(self, bin_instruction):
@@ -290,8 +286,6 @@ class Instruction:
 
         # used to log 
         self.s_type_bin_rd_log = bin_instruction[7:12]   
-
-        # print(f'S: {self.s_type_bin_immediate_11_5} {self.s_type_bin_rs2} {self.s_type_bin_rs1} {self.s_type_bin_funct3} {self.s_type_bin_immediate_4_0} {self.opcode} ')
 
 
     # decode base instruction of B type 
@@ -317,8 +311,6 @@ class Instruction:
         self.b_type_bin_immediate_adjusted += '0'
         self.b_type_int_offset_sexted = Util.adjust_bin_immediate_n_bits(self.b_type_bin_immediate_adjusted, \
                                                                          len(self.b_type_bin_immediate_adjusted))
-                
-        # print(f'B: {self.b_type_bin_immediate12_10_5} {self.b_type_bin_rs2} {self.b_type_bin_rs1} {self.b_type_bin_funct3} {self.b_type_bin_immediate4_1_11} {self.opcode} ')
 
 
     # decode base instruction of U type 
@@ -338,7 +330,6 @@ class Instruction:
         self.u_type_int_offset_sexted = Util.adjust_bin_immediate_n_bits(self.u_type_bin_immediate_adjusted, \
                                                                          len(self.u_type_bin_immediate_adjusted))
 
-        # print(f'U: {self.u_type_bin_immediate_31_12} {self.u_type_bin_rd} {self.opcode} ')
 
     # decode base instruction of J type 
     def decodeBaseInstruction_J_type(self, bin_instruction):
@@ -361,7 +352,6 @@ class Instruction:
         self.j_type_bin_rs1_log = bin_instruction[12:17]
         self.j_type_bin_rs2_log = bin_instruction[7:12]
 
-        # print(f'J: {self.j_type_bin_immediate_20_10_11_192} {self.j_type_bin_rd} {self.opcode} ')
 
     # remove binary prefix '0b' if exist 
     def removeBinaryPrefix(self, bin_instruction):

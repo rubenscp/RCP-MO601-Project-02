@@ -17,6 +17,7 @@ class RiscVProcessor:
         self.memory = []
         self.log = Log()
         self.instruction_map = InstructionMap()
+        self.execution_cycles = 0 
 
         # register map for assembler mnemonics.
         self.register_assembler_mnemonic_map = {
@@ -120,6 +121,9 @@ class RiscVProcessor:
         end_execution = False
         ni = 1
 
+        # setting number of execution cycles 
+        self.execution_cycles = 0 
+
         int_rs1_before_execute_instruction = 0
         int_rs2_before_execute_instruction = 0
 
@@ -155,6 +159,9 @@ class RiscVProcessor:
             # write log 
             self.log.write_instruction_log_line(current_instruction)
 
+            # counting number of execution cycles 
+            self.execution_cycles += 1
+
             # evaluating end of programa execution 
             if current_instruction.mnemonic == 'ebreak': 
                 end_execution = True
@@ -166,6 +173,9 @@ class RiscVProcessor:
 
         # closing log file
         self.log.close_log_file()
+
+        # printing number of execution cycles 
+        print(f'Simulating program execution: {program_name} - execution cycles: {self.execution_cycles}')
 
 
     # execute the instruction 
@@ -847,7 +857,6 @@ class RiscVProcessor:
     # imm[11:0] rs1 000 rd 1100111 JALR
     def executeBaseInstruction_I_type_jalr(self, instruction):
 
-        # TOCHECK
         # executing instruction
         # Implementation:	t =pc+4; pc=(x[rs1]+sext(offset))&∼1; x[rd]=t
 
@@ -1624,14 +1633,14 @@ class RiscVProcessor:
 
         # executing instruction 
         # Implementation:	if (x[rs1] != x[rs2]) pc += sext(offset)
-        if instruction.int_address == 222:
-            x = 0
-        print(f' endereço: {instruction.int_address}  '  + \
-              f' rs1: {instruction.get_int_register_pointed_by_rs1()} >> {self.registers[instruction.get_int_register_pointed_by_rs1()]}  '  + \
-              f' rs2: {instruction.get_int_register_pointed_by_rs2()} >> {self.registers[instruction.get_int_register_pointed_by_rs2()]}  '  + \
-              f' PC: {self.int_program_counter}  '  + \
-              f' offset_sexted: {instruction.b_type_int_offset_sexted}  '
-              )            
+        # if instruction.int_address == 222:
+        #     x = 0
+        # print(f' endereço: {instruction.int_address}  '  + \
+        #       f' rs1: {instruction.get_int_register_pointed_by_rs1()} >> {self.registers[instruction.get_int_register_pointed_by_rs1()]}  '  + \
+        #       f' rs2: {instruction.get_int_register_pointed_by_rs2()} >> {self.registers[instruction.get_int_register_pointed_by_rs2()]}  '  + \
+        #       f' PC: {self.int_program_counter}  '  + \
+        #       f' offset_sexted: {instruction.b_type_int_offset_sexted}  '
+        #       )            
 
         if self.registers[instruction.get_int_register_pointed_by_rs1()] != \
             self.registers[instruction.get_int_register_pointed_by_rs2()]:

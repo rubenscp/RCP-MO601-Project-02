@@ -31,32 +31,6 @@ class Log:
           # creating text file
           self.file = open(output_filename, 'w')
 
-     # def write_log_line(self):
-     #      # preparing line to write into the log file 
-     #      line = ''
-     #      line += 'PC=' + self.program_counter_register
-     #      line += ' ' + '[' + self.hex_instruction + ']'
-     #      line += ' ' + self.hex_rd
-     #      line += ' ' + self.hex_rs1
-     #      line += ' ' + self.hex_rs2
-     #      line += ' ' + self.dissassembly_instruction
-
-     #      # writing one line 
-     #      self.file.write(line)
-
-     # def write_instruction_log_line_detailed(self, instruction):
-     #      # preparing line to write into the log file 
-     #      line = ''
-     #      line += 'PC=' + Util.fill_hex_value_with_left_zeros(instruction.get_hex_address(), 8)
-     #      line += ' ' + '[' + Util.fill_hex_value_with_left_zeros(instruction.get_hex_instruction(), 8) + ']'
-     #      line += ' ' + instruction.get_hex_rd()
-     #      line += ' ' + instruction.get_hex_r1()
-     #      line += ' ' + instruction.get_hex_r2()
-     #      line += ' ' + instruction.get_instruction_dissassembly()
-
-     #      # writing one line 
-     #      self.file.write(line)
-
      def write_instruction_log_line(self, instruction):
           # writing log line 
           self.file.write(instruction.get_log_line())
