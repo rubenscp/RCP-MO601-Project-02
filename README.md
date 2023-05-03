@@ -36,23 +36,26 @@ git clone https://github.com/rubenscp/RCP-MO601-Project-02.git
 cd RCP-MO601-Project-02
 ```
 	
-### 4. Gerar programas em formato assembler _dump_ por intermédio do programa utilitário "riscv32-unknown-elf-objdump.exe"
+### 4. Gerar programas compilados em formato assembler (_dump_) por intermédio do programa utilitário "riscv32-unknown-elf-objdump.exe"
 
-Executar o arquivo de comandos em lote para geração dos programas assembler. dump_programas_compilados.bat
-
-
-```
-python source\main.py
-```
-
-=========== ============= ============  ========== 
-
+Executar o arquivo de comandos em lote para geração dos programas assembler.
 
 ```
 dump_programas_compilados.bat
 ```
 
-### 5. Abrir uma IDE para executar os programas/classes da aplicação Python
+### 5. Executar o simulador do processador RISC-V (aplicação Python)
+
+```
+python source\main.py
+```
+
+___
+
+### 6. Abrir uma IDE para executar os programas/classes da aplicação Python
+
+
+
 
 Executar o simulador de processador RISC-V.
 
