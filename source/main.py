@@ -93,7 +93,11 @@ if __name__ == '__main__':
     # creating RISCV Processor instance
     riscv_processor = RiscVProcessor(number_of_registers, memory_size)
     print()
-    print(f'Size of RAM: {memory_size} bytes >> {memory_size / 1024 / 1024} MBytes' )
+    print(f'---------------------------------------')
+    print(f'Project 02 - RISC-V Processor Simulador')
+    print(f'---------------------------------------')
+    print()
+    print(f'Size of RAM: {memory_size} bytes >> {memory_size / 1024 / 1024} MBytes')
     print()
 
     # processing each c program from ACStone in the folder tests 
