@@ -17,7 +17,7 @@ O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{
     
     \BlankLine
 
-    \KwEntrada {\textit{programa em formato assembler (linked - exemplo: 000.main.asm)}}
+    \KwEntrada {\textit{programa assembler (exemplo: 000.main.asm)}}
 
     \BlankLine
 
@@ -25,7 +25,7 @@ O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{
 
     \BlankLine
 
-    \KwExecutarPrograma{programa, PC}
+    \KwExecutarPrograma{programa assembler, PC}
     \Begin{
         
         \While{não alcançar a instrução \textit{ebreak}}
@@ -56,17 +56,17 @@ O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{
 
     \BlankLine
 
-    \ForEach{programa}
+    \ForEach{programa assembler}
     {    
         inicializar processador RISC-V criando memória RAM, registradores e PC
 
         \BlankLine
 
-        ler programa
+        ler programa assembler
 
         \BlankLine
 
-        armazenar programa na memória RAM
+        armazenar programa lido na memória RAM
 
         \BlankLine
 
@@ -74,7 +74,7 @@ O algoritmo do simulador do processador RISC-V RV32IM é apresentado em \textit{
 
         \BlankLine
         
-        \KwExecutarPrograma{programa, PC}
+        \KwExecutarPrograma{programa assembler, PC}
 
         \BlankLine
 
