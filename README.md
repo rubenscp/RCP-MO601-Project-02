@@ -21,7 +21,7 @@ Siga as instruções abaixo para a execução da aplicação.
 
 ### 1. Pré-requisitos
 
-O desenvolvimento do simulador foi realizado em computador com o sistema operacional Windows 10, bem como as ferramentas de compilação e montagem (liked) baseadas nesse ambiente. Assim, é necessário realizar os testes do simulador em ambiente equivalente ao especificado.
+O desenvolvimento do simulador foi realizado em computador com o sistema operacional Windows 10, bem como as ferramentas de compilação e montagem (linked) baseadas nesse ambiente. Assim, é necessário realizar os testes do simulador em ambiente equivalente ao especificado.
 
 
 ### 2. Clonar repositório do projeto
