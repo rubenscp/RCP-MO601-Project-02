@@ -6,10 +6,10 @@ O objetivo deste projeto é implementar um simulador do processador RISC-V RV32I
 
 O simulador implementa um modelo de processador contendo as estruturas de dados básicas com destaque à memória RAM com tamanho suficiente para acomodar as instruções e dados, 32 registradores e o contador de programa (\textit{Program Counter - PC}). 
 
-Os programas codificados na linguagem C disponibilizados no repositório ACStone \footnote[1]{\textit{https://github.com/rjazevedo/ACStone}} representam a entrada para o simulador, sendo que estes possuem funcionalidades e utilidades reduzidas, contudo são excelentes artefatos para uso em simuladores de processadores. O repositório possui 77 programas fonte C de testes os quais contemplam todas as instruções implementadas neste simulador. O conjunto de instruções RISC-V é composto por 47 instruções básicas (\textit{RV32I Base Instruction Set}) e 8 instruções de multplicaçao e divisão (\textit{RV32M Standard Extension}) totalizando 55 instruções. 
+Os programas codificados na linguagem C disponibilizados no repositório ACStone \footnote[1]{\textit{https://github.com/rjazevedo/ACStone}} representam a entrada para o simulador, sendo que estes possuem funcionalidades e utilidades reduzidas, contudo são excelentes artefatos para uso em simuladores de processadores. O repositório contém 77 programas fonte C de testes os quais contemplam todas as instruções implementadas neste simulador. O conjunto de instruções RISC-V é composto por 47 instruções básicas (\textit{RV32I Base Instruction Set}) e 8 instruções de multplicaçao e divisão (\textit{RV32M Standard Extension}) totalizando 55 instruções. 
 
 Os programas fonte foram compilados utilizando-se a arquitetura 32 bits, em seguida montados em formato assembler (\textit{linked}) e utilizados como entrada no simulador do processador RISC-V.
 
 Cada programa assembler foi processado separadamente produzindo um arquivo de saída com o log da execução conforme formato especificado na definição desse projeto (padrão ABI). Cada arquivo de log evidencia a simulação do respectivo programa fonte/assembler.
 
-Ao final da simulação, um arquivo contendo as estatísticas é gerado juntamente com os arquivos de log dos programas apresentando dados sobre a quantidade de instruções e o número de ciclos de execução de cada programa simulado.
+Ao final da simulação, um arquivo contendo as estatísticas é gerado juntamente com os arquivos de log dos programas contendo dados sobre a quantidade de instruções e o número de ciclos de execução de cada programa simulado.
